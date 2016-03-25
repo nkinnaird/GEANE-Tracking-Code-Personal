@@ -1,0 +1,1230 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"Chi",
+				"ChiSquaredsPerPlane"
+			],
+			[
+				"ChiS",
+				"ChiSquaredHistogramPlanesHit"
+			],
+			[
+				"ChiSquaredHis",
+				"ChiSquaredHistogramPlanesHit"
+			],
+			[
+				"YZ",
+				"YZtransfWithJacobian"
+			],
+			[
+				"YZtra",
+				"YZtransfMatrix"
+			],
+			[
+				"beter",
+				"betterHitPosition"
+			],
+			[
+				"deltaPs",
+				"deltaPsiNoughtYZ"
+			],
+			[
+				"Eig",
+				"Eigen::VectorXd"
+			],
+			[
+				"delta",
+				"deltaPsiNought"
+			],
+			[
+				"Jaco",
+				"JacobianToVU"
+			],
+			[
+				"error",
+				"errorMatricesGeVcm"
+			],
+			[
+				"zer",
+				"zeroStatePx"
+			],
+			[
+				"paramPred",
+				"paramPredictedInVU"
+			],
+			[
+				"myTra",
+				"myTransferMatricesGeVcm"
+			],
+			[
+				"Jac",
+				"JacobianToVU"
+			],
+			[
+				"Eigen",
+				"Eigen::MatrixXd"
+			],
+			[
+				"deltaS",
+				"deltaStartingTrack[3"
+			],
+			[
+				"YZt",
+				"YZtoVUcoordinateTransformationMatrix"
+			],
+			[
+				"starti",
+				"startingXMom"
+			],
+			[
+				"deltaMom",
+				"deltaMomentum"
+			],
+			[
+				"track",
+				"trackParamPredicted[3"
+			],
+			[
+				"paramMeas",
+				"paramMeasuredEigen"
+			],
+			[
+				"param",
+				"paramPredictedEigen"
+			],
+			[
+				"errorMatricesGeVcmIn",
+				"errorMatricesGeVcmInYZ"
+			],
+			[
+				"YZtoVUcoordinateTransformat",
+				"YZtoVUcoordinateTransformationMatrixInverse"
+			],
+			[
+				"bott",
+				"bottomRightCorner<2,2"
+			],
+			[
+				"errorMat",
+				"errorMatricesGeVcmInVU"
+			],
+			[
+				"Eige",
+				"Eigen::VectorXd::Zero(5"
+			],
+			[
+				"std",
+				"std::endl"
+			],
+			[
+				"para",
+				"paramMeasuredEigen"
+			],
+			[
+				"coordinateTr",
+				"coordinateTransformFiveByFive"
+			],
+			[
+				"sumV",
+				"sumVMomFixes"
+			],
+			[
+				"sumU",
+				"sumUMomFixes"
+			],
+			[
+				"Guess",
+				"GuessPassUMomFixHistogram"
+			],
+			[
+				"Gues",
+				"GuessPassVFixHistogram"
+			],
+			[
+				"First",
+				"FirstPassFixHistogram"
+			],
+			[
+				"numEven",
+				"numEventsWithASecondPassFix"
+			],
+			[
+				"nume",
+				"numEventsWithAFirstPassFix"
+			],
+			[
+				"numEve",
+				"numEventsWithAFirstPassFix"
+			],
+			[
+				"physi",
+				"physiWorld"
+			],
+			[
+				"curren",
+				"currentEventNum"
+			],
+			[
+				"num",
+				"numTrackParams"
+			],
+			[
+				"rota",
+				"rotationAngle"
+			],
+			[
+				"VU",
+				"VUtoYZcoordinateTransformationMatrixInverse"
+			],
+			[
+				"ZY",
+				"ZYtoUVcoordinateTransformationMatrixInverse"
+			],
+			[
+				"back",
+				"backwardsSurfaceTrajState"
+			],
+			[
+				"trackPara",
+				"trackParamPredicted[4"
+			],
+			[
+				"plan",
+				"planeNum-1"
+			],
+			[
+				"Plane",
+				"PlaneParameterTruth"
+			],
+			[
+				"TruthPl",
+				"TruthPlaneZero	(MyParallelWorld.cc)"
+			],
+			[
+				"y",
+				"y"
+			],
+			[
+				"trac",
+				"trackParamPredictedExtra"
+			],
+			[
+				"Upo",
+				"UPosition"
+			],
+			[
+				"VPos",
+				"VPosition_k"
+			],
+			[
+				"UPos",
+				"UPosition"
+			],
+			[
+				"VP",
+				"VPosition_k	(RootInput.hh)"
+			],
+			[
+				"Pos",
+				"Position"
+			],
+			[
+				"numEv",
+				"numEventsSkippedBadStartingPosition"
+			],
+			[
+				"numEvents",
+				"numEventsSkippedMissingPlanes"
+			],
+			[
+				"numPlanes",
+				"numPlanesHitForThisEvent"
+			],
+			[
+				"no",
+				"noHit"
+			],
+			[
+				"total",
+				"totalMomentumModified"
+			],
+			[
+				"frac",
+				"fractparttwo"
+			],
+			[
+				"layer",
+				"layerNum"
+			],
+			[
+				"ZPo",
+				"ZPosition	(errprop.cc)"
+			],
+			[
+				"XP",
+				"XPosition	(errprop.cc)"
+			],
+			[
+				"frist",
+				"firstPlaneHit"
+			],
+			[
+				"zero",
+				"zeroMatrix"
+			],
+			[
+				"transfer",
+				"transferMatricesFreeSystem"
+			],
+			[
+				"myG",
+				"myGhostWorld"
+			],
+			[
+				"gho",
+				"ghostWorld"
+			],
+			[
+				"SetMarker",
+				"SetMarkerColor"
+			],
+			[
+				"CHi",
+				"ChiSquaredProbHistogram"
+			],
+			[
+				"chi",
+				"chiSquaredTotal"
+			],
+			[
+				"event",
+				"eventChiSquared"
+			],
+			[
+				"eve",
+				"eventChiSquared"
+			],
+			[
+				"rand",
+				"randomAngle"
+			],
+			[
+				"Meas",
+				"Measured"
+			],
+			[
+				"star",
+				"startingXPos"
+			],
+			[
+				"starting",
+				"startingXPos"
+			],
+			[
+				"Sc2",
+				"SC2SDTransformationMatrix"
+			],
+			[
+				"trasnfer",
+				"transferMatricesFreeSystem"
+			],
+			[
+				"fill",
+				"fillTransformationMatrix0"
+			],
+			[
+				"plane",
+				"planeNum"
+			],
+			[
+				"emp",
+				"emptyMatrix"
+			],
+			[
+				"trackPar",
+				"trackParamMeasured"
+			],
+			[
+				"fillTra",
+				"fillTransportMatrix"
+			],
+			[
+				"SCE",
+				"SC2SDTransformationMatrixInverse"
+			],
+			[
+				"ept",
+				"emptyErrorMatrix"
+			],
+			[
+				"SC2S",
+				"SC2SDTransformationMatrix"
+			],
+			[
+				"first",
+				"firstPlaneHit"
+			],
+			[
+				"fNt",
+				"fNtuple1"
+			],
+			[
+				"storage",
+				"storagePlaneTargetZ"
+			],
+			[
+				"arra",
+				"arrayPosition"
+			],
+			[
+				"totl",
+				"totalMomentum"
+			],
+			[
+				"truth",
+				"truthPlaneTargetX"
+			],
+			[
+				"start",
+				"startingYPos"
+			],
+			[
+				"SC2",
+				"SC2SDTransformationMatrix"
+			],
+			[
+				"SC",
+				"SC2SDTransformationMatrixInverse"
+			],
+			[
+				"trans",
+				"transferMatricesFreeSystem"
+			],
+			[
+				"partti",
+				"particleMomDirection"
+			],
+			[
+				"part",
+				"particleStartPos"
+			],
+			[
+				"truthPlane",
+				"truthPlaneHalfX"
+			],
+			[
+				"PlanePos",
+				"PlanePositionMeasured"
+			],
+			[
+				"PositionMeasure",
+				"PositionMeasuredY"
+			],
+			[
+				"Mea",
+				"MeasurementInaccuracyY"
+			],
+			[
+				"PlanePosi",
+				"PlanePositionTruth"
+			],
+			[
+				"Position",
+				"PositionMeasured"
+			],
+			[
+				"my",
+				"myPhysicalWorld"
+			],
+			[
+				"to",
+				"to_string"
+			],
+			[
+				"RMS",
+				"RMSPerPlaneZ"
+			],
+			[
+				"res",
+				"residualsPerPlaneZ"
+			],
+			[
+				"resid",
+				"residualsPerPlaneY"
+			],
+			[
+				"trial",
+				"trialTrajSinglePlane"
+			],
+			[
+				"Matrix",
+				"MatrixXd"
+			],
+			[
+				"transp",
+				"transportMatrixBegToEnd"
+			],
+			[
+				"myTrans",
+				"myTransferMatricesMeVmm"
+			],
+			[
+				"transportMatrix",
+				"transportMatrixBegToEnd"
+			],
+			[
+				"sigma",
+				"sigmaErrorMatrices"
+			],
+			[
+				"Matr",
+				"MatrixXd"
+			],
+			[
+				"tes",
+				"testauto"
+			],
+			[
+				"YPos",
+				"YPositionResidual"
+			],
+			[
+				"YPosti",
+				"YPositionResidual"
+			],
+			[
+				"PLane",
+				"PlaneTracebackResiduals"
+			],
+			[
+				"tru",
+				"trueDeltas"
+			],
+			[
+				"GasSt",
+				"GasStrawU"
+			],
+			[
+				"logicGass",
+				"logicGasStrawU"
+			],
+			[
+				"out",
+				"outerRadiusOfTheGas"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "source/errprop.cc",
+			"settings":
+			{
+				"buffer_size": 88913,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 67.0,
+		"last_filter": "ssx c++",
+		"selected_items":
+		[
+			[
+				"ssx c++",
+				"Set Syntax: C++"
+			],
+			[
+				"ssx pyth",
+				"Set Syntax: Python"
+			],
+			[
+				"ssx c",
+				"Set Syntax: C++"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"settings user",
+				"Preferences: SublimeLinter Settings – User"
+			],
+			[
+				"linter",
+				"SublimeLinter: Toggle Linter"
+			],
+			[
+				"",
+				"ANF: Copy Current File"
+			],
+			[
+				"linter ke",
+				"Preferences: SublimeLinter Key Bindings – Default"
+			],
+			[
+				"alignment",
+				"Preferences: Alignment Key Bindings – Default"
+			],
+			[
+				"key user",
+				"Preferences: Key Bindings - User"
+			],
+			[
+				"keyconf",
+				"FindKeyConflicts: All Conflicts"
+			],
+			[
+				"keycon",
+				"FindKeyConflicts: Overlap Conflicts"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"align",
+				"Preferences: Alignment Key Bindings – User"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"key defa",
+				"Preferences: Key Bindings - Default"
+			],
+			[
+				"ins pac",
+				"Indentation: Convert to Spaces"
+			],
+			[
+				"key def",
+				"Preferences: Key Bindings - Default"
+			],
+			[
+				"sett user",
+				"Preferences: Settings - User"
+			],
+			[
+				"settings def",
+				"Preferences: Settings - Default"
+			],
+			[
+				"Title",
+				"Convert Case: Title Case"
+			],
+			[
+				"linter setting",
+				"Preferences: SublimeLinter Settings – Default"
+			],
+			[
+				"default",
+				"Preferences: Key Bindings - Default"
+			],
+			[
+				"user",
+				"Preferences: Key Bindings - User"
+			],
+			[
+				"glue",
+				"Glue - Launch"
+			],
+			[
+				"xiki",
+				"Create Xiki Buffer"
+			],
+			[
+				"soda",
+				"Preferences: Package Control Settings – Default"
+			],
+			[
+				"creat",
+				"Create Xiki Buffer"
+			],
+			[
+				"package",
+				"Package Control: Upgrade/Overwrite All Packages"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Satisfy Dependencies"
+			],
+			[
+				"in",
+				"Package Control: Install Package"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"ssx cmake",
+				"Set Syntax: CMake"
+			]
+		],
+		"width": 593.0
+	},
+	"console":
+	{
+		"height": 220.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = 'eb2297e1a458f27d836c04bb0cbaf282' + 'd0e7a3098092775ccb37ca9d6b2e4b7d'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/Extras",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/Plots",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/Plots/Plane0",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/Plots/Plane7",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/include",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/src"
+	],
+	"file_history":
+	[
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/src/BasicPrimaryGeneratorAction.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/src/BasicTrackerSD.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/basic.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/src/BasicDetectorContruction.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/src/MyParallelWorld.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/errprop.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/include/BasicDetectorConstruction.hh",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/Plots/GuessPassResidualFixHistogram.png",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/Plots/UVPlaneRMS.png",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/Plots/Plane5/UPositionResiduals.png",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/Plots/YZPlaneRMS.png",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/Plots/Plane30/VPositionResiduals.png",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/Extras/G4ErrorSurfaceTrajState.cc",
+		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/User/Default (OSX).sublime-keymap",
+		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/User/Diffy.sublime-settings",
+		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/Diffy/Diffy.sublime-settings",
+		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/User/SublimeLinter.sublime-settings",
+		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/Default/Default (OSX).sublime-keymap",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/src/RootInput.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/include/RootInput.hh",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/src/HistoManager.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/include/HistoManager.hh",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/src/BasicTrackerHit.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/include/BasicTrackerHit.hh",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/src/BasicEventAction.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/include/BasicEventAction.hh",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/src/BasicDetectorContruction-copytest.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/include/MyParallelWorld.hh",
+		"/Users/NickPC/Documents/Fermilab/Magnetic Field Measurements/Magnetometer January Data and Program Copy/MeasurementDescriptions.txt",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/build/basic_init_vis.mac",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Straw Tracker GEANT4E/source/errprop.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Straw Tracker GEANT4E/source/src/BasicEventAction.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Straw Tracker GEANT4E/source/src/BasicTrackerHit.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Straw Tracker GEANT4E/source/src/BasicDetectorContruction.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Straw Tracker GEANT4E/source/src/BasicPrimaryGeneratorAction.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Straw Tracker GEANT4E/source/include/RootInput.hh",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Straw Tracker GEANT4E/source/src/BasicTrackerSD.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Straw Tracker GEANT4E/source/include/HistoManager.hh",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Straw Tracker GEANT4E/source/include/BasicEventAction.hh",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Straw Tracker GEANT4E/source/src/HistoManager.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Straw Tracker GEANT4E/source/src/RootInput.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Straw Tracker GEANT4E/source/include/BasicTrackerHit.hh",
+		"/Users/NickPC/Documents/Fermilab/Magnetic Field Measurements/Opera Related/SummaryPlots.cc",
+		"/Users/NickPC/Documents/Fermilab/Magnetic Field Measurements/James Measurements/MC-1_Measurements/Analysis_v2/Program/inBuilding.C",
+		"/Users/NickPC/Documents/Fermilab/Magnetic Field Measurements/James Measurements/MC-1_Measurements/Analysis_v2/Program/insideGapRing.C",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Straw Tracker GEANT4E/source/CMakeLists.txt",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Full Toy Model Straw Tracker GEANT4E/source/src/BasicTrackerSD.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Full Toy Model Straw Tracker GEANT4E/source/src/BasicDetectorContruction.cc",
+		"/Users/NickPC/Documents/geant4.10.01/source/digits_hits/detector/include/FullStrawTrackerToyModel.sublime-project",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Straw Tracker GEANT4E/source/include/BasicPrimaryGeneratorAction.hh",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Straw Tracker GEANT4E/source/include/BasicDetectorConstruction.hh",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Straw Tracker GEANT4E/source/basic.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Straw Tracker GEANT4E Parallel World/source/basic.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Straw Tracker GEANT4E/source/include/MyParallelWorld.hh",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Straw Tracker GEANT4E/source/src/MyParallelWorld.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Straw Tracker GEANT4E/build/CMakeCache.txt",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Basic GEANT4E/source/errprop.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Basic GEANT4E/source/src/BasicDetectorContruction.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Basic GEANT4E/source/src/BasicPrimaryGeneratorAction.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Basic/source/src/BasicDetectorContruction.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Basic GEANT4E/BET/errprop - pre multiple passes.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Basic GEANT4E/source/CMakeLists.txt",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Basic GEANT4E/BET/errprop - method multiple passes.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/Electronics/TemperatureSensors/TemperaturePlot.cc",
+		"/Users/NickPC/Documents/Fermilab/BLMWork/Data/histmaker.c",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Basic GEANT4E/source/include/RootInput.hh",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Basic GEANT4E/source/src/BasicEventAction.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Basic GEANT4E/source/src/BasicRunAction.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Basic GEANT4E/source/include/BasicRunAction.hh",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Basic GEANT4E/source/include/BasicEventAction.hh",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/ElectronicsStuff/TemperaturePlot.cc",
+		"/Users/NickPC/Desktop/test.cpp",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Basic GEANT4E/source/include/BasicPrimaryGeneratorAction.hh",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Basic GEANT4E/careyerrprop.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Basic GEANT4E/source/errpropMatrixInverNotWorking.cc",
+		"/Users/NickPC/.ssh/config",
+		"/Users/NickPC/.ssh/confi",
+		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/C++ Snippets/reference.md",
+		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/C++ Snippets/README.md",
+		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/Alignment/Base File.sublime-settings",
+		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/User/C++.sublime-settings",
+		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/SublimeLinter/Default (OSX).sublime-keymap",
+		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/Alignment/Default (OSX).sublime-keymap",
+		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/Terminal/Base File.sublime-settings",
+		"/Users/NickPC/.profile",
+		"/Users/NickPC/Desktop/gm2buildoutput",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Basic GEANT4E/source/include/BasicDetectorConstruction.hh",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Basic GEANT4E/source/src/RootInput.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/BasicGEANT4E.sublime-project",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/GEANT4E play/source/CMakeLists.txt",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Basic/source/CMakeLists.txt",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/GEANT4E/careyerrprop.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/GEANT4E/source/src/RootInput.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/GEANT4E/source/include/RootInput.hh",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/GEANT4E/source/errprop.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/GEANT4E/source/CMakeLists.txt",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/GEANT4E/source/src/myclass.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/GEANT4E/source/myclass.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/GEANT4E/source/myclass.hh",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/untitled folder/careyerrprop.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/GEANT4E/include/myclass.hh",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/GEANT4E/src/myclass.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/GEANT4E/src/CMakeLists.txt",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Basic/source/src/HistoManager.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Basic/source/include/HistoInput.hh",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Basic/source/src/HistoInput.cc",
+		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/AdvancedNewFile/Default (OSX).sublime-keymap",
+		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/AdvancedNewFile/AdvancedNewFile.sublime-settings",
+		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/User/AdvancedNewFile.sublime-settings",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Straw Tracker/source/src/BasicDetectorContruction.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Straw Tracker/source/include/BasicMagneticField.hh",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Straw Tracker/source/include/BasicDetectorConstruction.hh",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Straw Tracker/source/include/BasicPrimaryGeneratorAction.hh",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Straw Tracker/source/src/HistoManager.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Straw Tracker/source/include/HistoManager.hh",
+		"/Users/NickPC/Documents/geant4.10.1.p01-build/geant4make.sh",
+		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/SublimeLinter/SublimeLinter.sublime-settings",
+		"/Users/NickPC/Documents/root5.34.30-build/bin/thisroot.sh",
+		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/User/SublimeXiki.sublime-settings",
+		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/Package Control/Package Control.sublime-settings",
+		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/Default",
+		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/MacTerminal/Default.sublime-keymap",
+		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/Glue/Glue.sublime-settings",
+		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/MacTerminal/MacTerminal.sublime-settings",
+		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/User/Glue.sublime-settings",
+		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/SublimeXiki/SublimeXiki.sublime-settings"
+	],
+	"find":
+	{
+		"height": 23.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			"<files>",
+			"",
+			"<files>",
+			"files"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"numPlanesHit",
+			"ChiSquaredHistogramPlanesHit",
+			"YPositionResiduals",
+			"ChiSquaredHistogramPlanesHit",
+			"numPlanesHit",
+			"testSC2SDmatrix",
+			"fillTransformationMatrix",
+			"strawPosition",
+			"InputParameters",
+			"PlaneTracebackResiduals",
+			"startingVMom",
+			"startingUMom",
+			"startingVMom",
+			"deltaStartingTrack",
+			"deltaPsiNought",
+			"Vacuum",
+			"errorMatricesGeVcmInVU",
+			"errorMatricesGeVcmInYZ",
+			"errorMatricesGeVcmInVU",
+			"errorMatricesGeVcm",
+			"myTransferMatricesEigen",
+			"myTransferMatricesGeVcm",
+			"myTransferMatricesEigen",
+			"residualsInVU",
+			"paramMeasuredInYZ",
+			"paramMeasuredEigen",
+			"trackParamPredictedMomentumExtra",
+			"sqrt( 1./trackParamPredicted[0].at(planeNum)*1./trackParamPredicted[0].at(planeNum) - mySurfaceTrajState->GetParameters().GetPV()*mySurfaceTrajState->GetParameters().GetPV() - mySurfaceTrajState->GetParameters().GetPW()*mySurfaceTrajState->GetParameters().GetPW() )",
+			"sqrt( 1./trackParamPredicted[0].at(planeNum)*1./trackParamPredicted[0].at(planeNum) - mySurfaceTrajState->GetParameters().GetPV()*mySurfaceTrajState->GetParameters().GetPV() - mySurfaceTrajState->GetParameters().GetPW()*mySurfaceTrajState->GetParameters().GetPW() );",
+			"errorEnd",
+			"tempPos",
+			"cat",
+			"momBegVW",
+			"posBegVW",
+			"momBeg",
+			"posBeg",
+			"dog",
+			"particleGeneratorAction",
+			"reconstructedZMomentumChange",
+			"reconstructedYMomentumChange",
+			"totalStartMomentumModified",
+			"trackParamMeasuredExtra",
+			"eigenSC2SDmatrices",
+			"ChiSquaredValues",
+			"iProp",
+			"ZYtoUVcoordinateTransformationMatrix",
+			"ChiSquaredValues",
+			"GuessPassVFixHistogram",
+			"GuessPassUFixHistogram",
+			"noHit",
+			"covarianceTotal",
+			"trackParamPredictedExtra",
+			"myTransferMatricesGeVcm",
+			"JacobianToVU",
+			"totalStartMomentumModified",
+			"startingVMom",
+			"myTransferMatricesGeVcm",
+			"Vacuum",
+			";}//",
+			"YZtoVUcoordinateTransformationMatrix",
+			"startingVMom",
+			"vyV",
+			"startingYMom",
+			"INVsigmaErrorMatrices",
+			"wyV",
+			"pv3",
+			"xv3",
+			"sigmaErrorMatrices",
+			"paramPredictedInVU",
+			"YZtoVUcoordinateTransformFiveByFive",
+			"YZtoVUcoordinateTransformation",
+			"ZYtoUVcoordinate",
+			"YZtoVUcoordinateTransformFiveByFive",
+			"errorMatricesGeVcmInVU",
+			"paramMeasuredEigen",
+			"sumVMomFixes",
+			"sumUMomFixes",
+			"sumVFixes",
+			"sumUFixes",
+			"paramMeasuredEigen",
+			"paramMeasuredInYZ",
+			"coordinateTransformFiveByFive",
+			"residuals",
+			"myTransferMatricesGeVcm",
+			"residuals",
+			"paramMeasured",
+			"ZYtoUVcoordinateTransformationMatrix",
+			"ZYtoUVcoordinateTransformationMatrixInverse",
+			"CLHEP",
+			"vzU",
+			"wyV",
+			"ZYtoUVcoordinateTransformationMatrix",
+			"covarianceTotal",
+			"ZYtoUVcoordinateTransformationMatrix",
+			"wyV",
+			"getenv",
+			"vzU, wyV,",
+			"vzU",
+			"wyV, vzU,",
+			"vzU, wyV,",
+			"wyV,",
+			"vzU, wyV,",
+			"vzU",
+			"wyV, vzU,",
+			"Vacuum",
+			"wyV",
+			"ZYtoUVcoordinateTransformationMatrix",
+			"vzU",
+			"trackParamPredicted",
+			"position",
+			"guessFixLeg",
+			"GuessPassUFixHistogram",
+			"sumUFixes",
+			"GuessPassUFixHistogram",
+			"g4emgr",
+			"legYZ",
+			"GuessPassUFixHistogram",
+			"GuessPassFixHistogram",
+			"initialUPosChange",
+			"FirstPassFixHistogram",
+			"numEventsWithAFirstPassFix",
+			"ZYtoUVcoordinateTransformationMatrix",
+			"numEventsWithASecondPassFix",
+			"sumVFixes",
+			"numEventsWithAFirstPassFix",
+			"myGhostWorld",
+			"G4cout",
+			"TotalMomentum"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"G4endl",
+			"],\n",
+			"FORWARDS",
+			""
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "source/errprop.cc",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 88913,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								16380,
+								16380
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content"
+							],
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 4559.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 34.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.unsaved_changes":
+	{
+		"height": 100.0
+	},
+	"pinned_build_system": "",
+	"project": "Complete.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"source/errprop.cc"
+			],
+			[
+				"magn",
+				"source/include/BasicMagneticField.hh"
+			],
+			[
+				"g4attchhh",
+				"graphics_reps/include/G4AttCheck.hh"
+			],
+			[
+				"g4att",
+				"graphics_reps/include/G4AttCheck.hh"
+			],
+			[
+				"g4attcheck",
+				"graphics_reps/src/G4AttCheck.cc"
+			],
+			[
+				"g4traj",
+				"tracking/include/G4Trajectory.hh"
+			],
+			[
+				"g4trajec",
+				"tracking/src/G4Trajectory.cc"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"~/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Straw Tracker GEANT4E/XYZStrawGEANT4E.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 392.0,
+		"last_filter": "Const",
+		"selected_items":
+		[
+			[
+				"Const",
+				"ConstructSDandField"
+			],
+			[
+				"",
+				"$(VERBOSE).SILENT:"
+			],
+			[
+				"GetPart",
+				"GetParticleGun"
+			]
+		],
+		"width": 683.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": false,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 281.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
