@@ -329,7 +329,7 @@ JacobianToVU.block(3,3,2,2) = YZtoVUcoordinateTransformationMatrixInverse;
 
 
 
-std::exit(0);
+// std::exit(0);
 
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -1639,6 +1639,9 @@ void ResidualPlots(){
   // myCanvas->SaveAs(("../Plots/Plane"+std::to_string(planeNum)+"/MeasurementInaccuracyZ.png").c_str());
 
   ChiSquaredHistogramPlanesHit[planeNum]->Draw();
+  TF1* chi2pdf = new TF1("chi2pdf","[2]*ROOT::Math::chisquared_pdf(x,[0],[1])",0,60);
+  chi2pdf->SetParameters(planeNum-5, 0., ChiSquaredHistogramPlanesHit[planeNum]->GetEntries());
+  chi2pdf->Draw("SAME");
   myCanvas->SaveAs(("../Plots/ChiSquaredsPerPlane/ChiSquaredsPlanesHit"+std::to_string(planeNum)+".png").c_str());
 
   // delete ChiSquaredHistogramPlanesHit[planeNum];
@@ -1677,7 +1680,7 @@ void ResidualPlots(){
   TGraph* RMSPerPlaneY = new TGraph(maxNumPlanes, pointNo, YRMSarray);
   RMSPerPlaneY->SetTitle("RMS; Plane Number; RMS (mm)");
   // RMSPerPlaneY->GetXaxis()->SetRangeUser(0,8);
-  RMSPerPlaneY->GetYaxis()->SetRangeUser(0.,.8);
+  RMSPerPlaneY->GetYaxis()->SetRangeUser(0.,.5);
   RMSPerPlaneY->SetMarkerStyle(20);
   RMSPerPlaneY->SetMarkerColor(1);
   RMSPerPlaneY->Draw("AP"); //A for "all" or something, nothing plots without it. L for connected lines between points, and P for dot style points.
@@ -1705,7 +1708,7 @@ void ResidualPlots(){
   TGraph* RMSPerPlaneU = new TGraph(maxNumPlanes, pointNo, URMSarray);
   RMSPerPlaneU->SetTitle("RMS; Plane Number; RMS (mm)");
   // RMSPerPlaneU->GetXaxis()->SetRangeUser(0,8);
-  RMSPerPlaneU->GetYaxis()->SetRangeUser(0.,.8);
+  RMSPerPlaneU->GetYaxis()->SetRangeUser(0.,.5);
   RMSPerPlaneU->SetMarkerStyle(20);
   RMSPerPlaneU->SetMarkerColor(1);
   RMSPerPlaneU->Draw("AP"); //A for "all" or something, nothing plots without it. L for connected lines between points, and P for dot style points.
