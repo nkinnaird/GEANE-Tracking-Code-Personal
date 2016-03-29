@@ -1640,7 +1640,13 @@ void ResidualPlots(){
 
   ChiSquaredHistogramPlanesHit[planeNum]->Draw();
   TF1* chi2pdf = new TF1("chi2pdf","[2]*ROOT::Math::chisquared_pdf(x,[0],[1])",0,60);
-  chi2pdf->SetParameters(planeNum-5, 0., ChiSquaredHistogramPlanesHit[planeNum]->GetEntries());
+  chi2pdf->SetParameters(planeNum-5, 0., ChiSquaredHistogramPlanesHit[planeNum]->Integral("WIDTH")); 
+
+  // G4cout << "Num entries : " << ChiSquaredHistogramPlanesHit[planeNum]->GetEntries() << G4endl;
+  // G4cout << "Integral : " << ChiSquaredHistogramPlanesHit[planeNum]->Integral() << G4endl;
+  // G4cout << "Integral with width : " << ChiSquaredHistogramPlanesHit[planeNum]->Integral("WIDTH") << G4endl;
+  // G4cout << "Integral of func: " << chi2pdf->Integral(0,60) << G4endl;
+
   chi2pdf->Draw("SAME");
   myCanvas->SaveAs(("../Plots/ChiSquaredsPerPlane/ChiSquaredsPlanesHit"+std::to_string(planeNum)+".png").c_str());
 
