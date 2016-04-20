@@ -145,6 +145,10 @@ TH1F* ChiSquaredHistogram;
 TH1F* ChiSquaredHistogramPlanesHit[maxNumPlanes];
   // TH1F* ChiSquaredProbHistogram;
 
+int numEventsWith32Planes = 0;
+double materialErrorPerPlaneSum[maxNumPlanes];
+double materialErrorPerPlane[maxNumPlanes];
+
 /////////////////////////////////////////////////////////////////////////////////////
 
 // Blank residuals map to fill vector of maps.
@@ -249,6 +253,12 @@ int main(/*int argc,char** argv*/)
   // TH1F* ChiSquaredProbHistogram = new TH1F("Chi Squared PDF", "Chi Squared PDF; Chi Squared; Number of Events", 100, 0, 50);
 
 
+  for (int planeNum = 0; planeNum < maxNumPlanes; ++planeNum)
+  {
+    materialErrorPerPlaneSum[planeNum] = 0.;
+  }
+
+
 /////////////////////////////////////////////////////////////////////////////////////
 
   // Visualization disabled.
@@ -282,8 +292,10 @@ JacobianToVU = Eigen::MatrixXd::Zero(5,5);
 JacobianToVU(0,0) = 1.;
 JacobianToVU.block(1,1,2,2) = YZtoVUcoordinateTransformationMatrixInverse;
 JacobianToVU.block(3,3,2,2) = YZtoVUcoordinateTransformationMatrixInverse;
+// JacobianToVU = Eigen::MatrixXd::Identity(5,5);
 
-// G4cout << G4endl << "Jacobian between YZ and VU coordinate systems is: " << G4endl << JacobianToVU << G4endl;
+G4cout << G4endl << "Jacobian between YZ and VU coordinate systems is: " << G4endl << JacobianToVU << G4endl;
+
 
 
 /////////////////////////////////////////////////////////////////////////////////////  
@@ -382,6 +394,13 @@ JacobianToVU.block(3,3,2,2) = YZtoVUcoordinateTransformationMatrixInverse;
         numEventsSkippedMissingPlanes++;
       }
 
+  }
+
+  
+
+  for (int planeNum = 0; planeNum < maxNumPlanes; ++planeNum)
+  {
+    materialErrorPerPlane[planeNum] = sqrt(materialErrorPerPlaneSum[planeNum]/numEventsWith32Planes) * 1e4; // Should go from cm^2 to um with this.
   }
 
 
@@ -845,9 +864,9 @@ for (int passNumber = 0; passNumber < numPasses; ++passNumber)
           {
             
             // G4cout << " Particle momentum is: " << myFreeTrajState->GetMomentum() << " with magnitude: " << myFreeTrajState->GetMomentum().mag() << G4endl;
-            
+
             g4emgr->PropagateOneStep( myFreeTrajState, theG4ErrorMode );
-            
+
             // Use step by step propagation to properly save the transfer matrices.
 
             // G4cout << "Propagating to Plane number: " << planeNum << " stepNumBetweenPlanes: " << stepNumBetweenPlanes << " Step length: " << myFreeTrajState->GetG4Track()->GetStepLength() << G4endl;
@@ -942,8 +961,25 @@ for (int passNumber = 0; passNumber < numPasses; ++passNumber)
             errorEnd = mySurfaceTrajState->GetError();
             errorMatrices.push_back(errorEnd);
 
+
+
       }  // End planeNum loop
 
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+
+      if (passNumber == 2 && numPlanesHit == 33)
+      {
+          numEventsWith32Planes++;
+
+          for (int planeNum = 0; planeNum < maxNumPlanes; ++planeNum)
+          {
+            materialErrorPerPlaneSum[planeNum] = materialErrorPerPlaneSum[planeNum] + errorMatrices[planeNum][4][4];
+          }
+
+      }
 
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -1150,6 +1186,8 @@ for (int passNumber = 0; passNumber < numPasses; ++passNumber)
 
     PlaneTracebackResiduals[planeNum]["U"] = (PlanePositionMeasured[planeNum]["UPos"] - (YZtoVUcoordinateTransformationMatrix(1,0)*trackParamPredicted[3].at(planeNum) + YZtoVUcoordinateTransformationMatrix(1,1)*trackParamPredicted[4].at(planeNum)));
     PlaneTracebackResiduals[planeNum]["V"] = (PlanePositionMeasured[planeNum]["VPos"] - (YZtoVUcoordinateTransformationMatrix(0,0)*trackParamPredicted[3].at(planeNum) + YZtoVUcoordinateTransformationMatrix(0,1)*trackParamPredicted[4].at(planeNum)));
+    // PlaneTracebackResiduals[planeNum]["U"] = (PlanePositionMeasured[planeNum]["UPos"] - (trackParamPredicted[4].at(planeNum)));
+    // PlaneTracebackResiduals[planeNum]["V"] = (PlanePositionMeasured[planeNum]["VPos"] - (trackParamPredicted[3].at(planeNum)));
 
 
   }
@@ -1243,11 +1281,28 @@ Eigen::VectorXd trialTrajectoryAllPlanes;
 std::vector<Eigen::MatrixXd> transportMatrixBegToEnd;
 std::vector<Eigen::MatrixXd> INVsigmaErrorMatrices;
 
+std::vector<Eigen::MatrixXd> mainDiagonalErrorMatrices;
+
+double unmeasured = 1.e300;
+
+std::vector<Eigen::MatrixXd> INVmaterialErrorMatrices;
+std::vector<Eigen::MatrixXd> INVpropagatedErrorMatrices;
+
+Eigen::MatrixXd INVERTEDgiantWeightMatrix;
+
+
 std::vector<Eigen::MatrixXd> myTransferMatricesGeVcm;
 std::vector<Eigen::MatrixXd> errorMatricesGeVcm;
 
-// GeV cm are the better units for the matrix multiplication to work out, otherwise numerical errors can start ocurring with large transport matrices.
+std::vector<Eigen::MatrixXd> errorMatricesBetweenPlanes;
 
+/////////////////////////////////////////////////////////////////////////////////////
+Eigen::VectorXd combinedResiduals((maxNumPlanes-1)*numTrackParams);
+Eigen::MatrixXd combinedTransportMatrices(numTrackParams*(maxNumPlanes-1),numTrackParams);
+Eigen::MatrixXd combinedTotalErrorCorrelationMatrix(numTrackParams*(maxNumPlanes-1),numTrackParams*(maxNumPlanes-1));
+/////////////////////////////////////////////////////////////////////////////////////
+
+// GeV cm are the better units for the matrix multiplication to work out, otherwise numerical errors can start ocurring with large transport matrices.
 for(int ipl=0;ipl<maxNumPlanes;ipl++) {
       myTransferMatricesGeVcm.push_back(Eigen::MatrixXd::Zero(5,5));
       errorMatricesGeVcm.push_back(Eigen::MatrixXd::Zero(5,5));
@@ -1264,6 +1319,12 @@ for(int ipl=0;ipl<maxNumPlanes;ipl++) {
    myTransferMatricesGeVcm[ipl] =  JacobianToVU.inverse() * myTransferMatricesGeVcm[ipl] * JacobianToVU;
    errorMatricesGeVcm[ipl] =  JacobianToVU.inverse() * errorMatricesGeVcm[ipl] * JacobianToVU;
    // NOTE: The inverse is on the left side here because of how we generate the Jacobian between the two bases.
+ }
+
+ errorMatricesBetweenPlanes.push_back(Eigen::MatrixXd::Zero(5,5)); // Put a zero matrix into the zeroth position.
+ for (int ipl = 1; ipl < maxNumPlanes; ++ipl)
+ {
+   errorMatricesBetweenPlanes.push_back(errorMatricesGeVcm[ipl]-errorMatricesGeVcm[ipl-1]); // Construct error matrices between planes, I think subtraction is okay. 
  }
 
 
@@ -1292,20 +1353,20 @@ for(int ipl=0;ipl<maxNumPlanes;ipl++) {
 
 // NOTE: Use this part for material error matrices with experimental error properly added. This is a separate loop because I was doing things a little differently before, and might again someday.
 
-     for (int ipl = 0; ipl < maxNumPlanes; ++ipl)
-     {
-        errorMatricesGeVcm[ipl](3,3) += 0.0001; // GEVCM // Add in experimental part properly, .01 cm ^ 2.
-        errorMatricesGeVcm[ipl](4,4) += 0.0001; // GEVCM
+//      for (int ipl = 0; ipl < maxNumPlanes; ++ipl)
+//      {
+//         errorMatricesGeVcm[ipl](3,3) += 0.01*0.01; // GEVCM // Add in experimental part properly, .01 cm ^ 2.
+//         errorMatricesGeVcm[ipl](4,4) += 0.01*0.01; // GEVCM
 
-#if MATRIXDEBUG
-       printf("Propagated error matrices in VU GeV cm ERROR ADDED %d \n",ipl);
-       std::cout << errorMatricesGeVcm[ipl] << G4endl;
+// #if MATRIXDEBUG
+//        printf("Propagated error matrices in VU GeV cm ERROR ADDED %d \n",ipl);
+//        std::cout << errorMatricesGeVcm[ipl] << G4endl;
 
-       printf("Propagated error matrices in VU GeV cm ERROR ADDED inverted %d \n",ipl);
-       std::cout << errorMatricesGeVcm[ipl].inverse() << G4endl;
-#endif
+//        printf("Propagated error matrices in VU GeV cm ERROR ADDED inverted %d \n",ipl);
+//        std::cout << errorMatricesGeVcm[ipl].inverse() << G4endl;
+// #endif
 
-      }
+//       }
 
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -1319,10 +1380,14 @@ for(int ipl=0;ipl<maxNumPlanes;ipl++) {
             // In the case of a single U or single V measurement, I simply grab the single element from the inverted 5x5, with everything else zeros.
             // If a plane is not hit, it is filled with zeros. This matrix then goes on to multiply the other matrix pieces (possibly non-zero) in the tracking code, serving to remove any effects from non-hit planes that might otherwise introduce errors into the tracking.
 
-            INVsigmaErrorMatrices.push_back(Eigen::MatrixXd::Zero(5,5));
+            // INVsigmaErrorMatrices.push_back(Eigen::MatrixXd::Zero(5,5));
+            // INVmaterialErrorMatrices.push_back(Eigen::MatrixXd::Zero(5,5));
+
+            mainDiagonalErrorMatrices.push_back(unmeasured * Eigen::MatrixXd::Identity(5,5)); // Fill infinities into non-measured elements.
 
             // Eigen::Matrix2d tempMatrix = (errorMatricesGeVcm[ipl].bottomRightCorner<2,2>()).inverse(); // This grabs the 2x2 part and then inverts it, which is incorrect I believe, although approximately the same since material errors are so low.
-            Eigen::Matrix2d tempMatrix = (errorMatricesGeVcm[ipl].inverse()).bottomRightCorner<2,2>(); // This is inverting a 5x5 which can probably be replaced with a solve method.
+            // Eigen::Matrix2d tempMatrix = (errorMatricesGeVcm[ipl].inverse()).bottomRightCorner<2,2>(); // This is inverting a 5x5 which can probably be replaced with a solve method.
+            // Eigen::Matrix2d tempMatrix = (errorMatricesBetweenPlanes[ipl].inverse()).bottomRightCorner<2,2>();
 
             // INVsigmaErrorMatrices[ipl].bottomRightCorner<2,2>() = tempMatrix;           
 
@@ -1343,8 +1408,10 @@ for(int ipl=0;ipl<maxNumPlanes;ipl++) {
 #if MATRIXDEBUG
  G4cout << " Hit U. " << G4endl;
 #endif
-              INVsigmaErrorMatrices[ipl](4,4) = tempMatrix(1,1); // 11 element for bottom right 2x2 matrix element.
-              // INVsigmaErrorMatrices[ipl](4,4) = 10000.; // This for ignoring the material error and only using the experimental error.
+              // INVsigmaErrorMatrices[ipl](4,4) = tempMatrix(1,1); // 11 element for bottom right 2x2 matrix element.
+              // INVmaterialErrorMatrices[ipl](4,4) = 10000.;
+
+              mainDiagonalErrorMatrices[ipl](4,4) = errorMatricesGeVcm[ipl](4,4) + (.01*.01);
             }
 
             else if (paramMeasured[4][ipl] == noHit && paramMeasured[3][ipl] != noHit)
@@ -1352,19 +1419,10 @@ for(int ipl=0;ipl<maxNumPlanes;ipl++) {
 #if MATRIXDEBUG
   G4cout << " Hit V. " << G4endl;
 #endif
-              INVsigmaErrorMatrices[ipl](3,3) = tempMatrix(0,0); // 11 element for bottom right 2x2 matrix element.
-              // INVsigmaErrorMatrices[ipl](3,3) = 10000.; // This for ignoring the material error and only using the experimental error.
-            }
+              // INVsigmaErrorMatrices[ipl](3,3) = tempMatrix(0,0); // 11 element for bottom right 2x2 matrix element.
+              // INVmaterialErrorMatrices[ipl](3,3) = 10000.;
 
-            else if (paramMeasured[3][ipl] != noHit && paramMeasured[4][ipl] != noHit)
-            { 
-#if MATRIXDEBUG
- G4cout << " Hit both U and V. " << G4endl;
-#endif
-                INVsigmaErrorMatrices[ipl].bottomRightCorner<2,2>() = tempMatrix; // This selects the bottom right 2x2 block.
-                
-                // INVsigmaErrorMatrices[ipl](4,4) = 10000.;// These for ignoring the material error and only using the experimental error.
-                // INVsigmaErrorMatrices[ipl](3,3) = 10000.;
+              mainDiagonalErrorMatrices[ipl](3,3) = errorMatricesGeVcm[ipl](3,3) + (.01*.01);
             }
 
       }
@@ -1376,12 +1434,22 @@ for(int ipl=0;ipl<maxNumPlanes;ipl++) {
      // Debug printing
      printf("\n");
      for(int ipl=0;ipl<maxNumPlanes;ipl++) {
-       printf("Full inverted error matrices %d \n",ipl);
-       std::cout << INVsigmaErrorMatrices[ipl];
+       printf("Pre inversion diagonal error matrices %d \n",ipl);
+       std::cout << mainDiagonalErrorMatrices[ipl];
        printf("\n \n");
      }
 #endif
 /////////////////////////////////////////////////////////////////////////////////////
+
+// std::exit(0);
+
+/////////////////////////////////////////////////////////////////////////////////////
+     for (int ipl = 1; ipl < maxNumPlanes; ++ipl)
+     {
+        combinedTotalErrorCorrelationMatrix.block(numTrackParams*(ipl-1),numTrackParams*(ipl-1),numTrackParams,numTrackParams) = mainDiagonalErrorMatrices[ipl];
+     }
+
+
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
 
@@ -1401,6 +1469,127 @@ for(int ipl=0;ipl<maxNumPlanes;ipl++) {
         transportMatrixBegToEnd[ipl] = myTransferMatricesGeVcm[ipl]*transportMatrixBegToEnd[ipl-1]; // Multiply previous full transport matrices on the left by the next single gap transport matrix.
       }
 
+
+/////////////////////////////////////////////////////////////////////////////////////
+
+/* // Reduced form down below - keeping this just in case.
+     // Top side diagonals.
+     for (int ipl = 1; ipl < maxNumPlanes; ++ipl)
+     {
+       for (int index = ipl+1; index < maxNumPlanes; ++index)
+       {
+          // G4cout << " ipl: " << ipl << " index: " << index << G4endl;
+
+          Eigen::MatrixXd tempMatrix;
+          Eigen::MatrixXd tempMatrix2 = Eigen::MatrixXd::Zero(5,5);
+          // Eigen::MatrixXd jointTransport = (transportMatrixBegToEnd[index]*(transportMatrixBegToEnd[ipl].inverse()));
+          // tempMatrix = jointTransport.transpose()*errorMatricesGeVcm[ipl];
+
+            if (paramMeasured[3][ipl] == noHit && paramMeasured[4][ipl] == noHit) // Check to make sure the current plane was hit as well as the plane to which we are correlating.
+            { 
+
+
+              continue;
+            }
+
+            else if (paramMeasured[4][index] != noHit) // ipl+1
+            {
+              tempMatrix = (transportMatrixBegToEnd[index]*(transportMatrixBegToEnd[ipl].inverse())*errorMatricesGeVcm[ipl]);//(4,4);
+              // tempMatrix2(4,4) = tempMatrix(4,4);    
+              tempMatrix2.bottomRightCorner<2,2>() = tempMatrix.bottomRightCorner<2,2>();
+
+            }
+
+            else if (paramMeasured[3][index] != noHit) // ipl+1
+            { 
+              tempMatrix = (transportMatrixBegToEnd[index]*(transportMatrixBegToEnd[ipl].inverse())*errorMatricesGeVcm[ipl]);//(3,3);   
+              // tempMatrix2(3,3) = tempMatrix(3,3);   
+              tempMatrix2.bottomRightCorner<2,2>() = tempMatrix.bottomRightCorner<2,2>();
+
+            }
+
+        combinedTotalErrorCorrelationMatrix.block(numTrackParams*(ipl-1),numTrackParams*(index-1),numTrackParams,numTrackParams) = tempMatrix2;
+
+          
+       }
+     }
+
+// Bottom side diagonals.
+     for (int ipl = 1; ipl < maxNumPlanes; ++ipl)
+     {
+       for (int index = ipl+1; index < maxNumPlanes; ++index)
+       {
+          // G4cout << " ipl: " << ipl << " index: " << index << G4endl;
+
+          Eigen::MatrixXd tempMatrix;
+          Eigen::MatrixXd tempMatrix2 = Eigen::MatrixXd::Zero(5,5);
+          Eigen::MatrixXd jointTransport = (transportMatrixBegToEnd[index]*(transportMatrixBegToEnd[ipl].inverse()));
+          tempMatrix = errorMatricesGeVcm[ipl]*(jointTransport.transpose());
+
+            if (paramMeasured[3][ipl] == noHit && paramMeasured[4][ipl] == noHit)
+            { 
+              continue;
+            }
+
+            else if (paramMeasured[4][index] != noHit) // ipl // No +1 maybe because these matrices multiply against the current plane, not the next plane.
+            {
+              // tempMatrix = (errorMatricesGeVcm[ipl]*(transportMatrixBegToEnd[index]*(transportMatrixBegToEnd[ipl].inverse())));//(4,4);
+              // tempMatrix2(4,4) = tempMatrix(4,4);    
+              tempMatrix2.bottomRightCorner<2,2>() = tempMatrix.bottomRightCorner<2,2>();
+
+            }
+
+            else if (paramMeasured[3][index] != noHit) // ipl
+            { 
+              // tempMatrix = (errorMatricesGeVcm[ipl]*(transportMatrixBegToEnd[index]*(transportMatrixBegToEnd[ipl].inverse())));//(3,3);   
+              // tempMatrix2(3,3) = tempMatrix(3,3);   
+              tempMatrix2.bottomRightCorner<2,2>() = tempMatrix.bottomRightCorner<2,2>();
+
+            }
+
+        combinedTotalErrorCorrelationMatrix.block(numTrackParams*(index-1),numTrackParams*(ipl-1),numTrackParams,numTrackParams) = tempMatrix2;
+
+          
+       }
+     }
+*/
+
+
+
+     for (int ipl = 1; ipl < maxNumPlanes; ++ipl)
+     {
+       for (int index = ipl+1; index < maxNumPlanes; ++index)
+       {
+          // G4cout << " ipl: " << ipl << " index: " << index << G4endl;
+
+          Eigen::MatrixXd tempMatrix = (transportMatrixBegToEnd[index]*(transportMatrixBegToEnd[ipl].inverse())*errorMatricesGeVcm[ipl]);
+
+          Eigen::MatrixXd topDiagonalMatrixFill = Eigen::MatrixXd::Zero(5,5);
+          Eigen::MatrixXd botDiagonalMatrixFill = Eigen::MatrixXd::Zero(5,5);
+
+            if (paramMeasured[3][ipl] == noHit && paramMeasured[4][ipl] == noHit) // Check to make sure the current plane was hit as well as the plane to which we are correlating.
+            { 
+              continue;
+            }
+
+            else if (paramMeasured[4][index] != noHit) // These identical but separated in case I want to grab individual elements later.
+            {
+              topDiagonalMatrixFill.bottomRightCorner<2,2>() = tempMatrix.bottomRightCorner<2,2>();
+              combinedTotalErrorCorrelationMatrix.block(numTrackParams*(ipl-1),numTrackParams*(index-1),numTrackParams,numTrackParams) = topDiagonalMatrixFill;
+              combinedTotalErrorCorrelationMatrix.block(numTrackParams*(index-1),numTrackParams*(ipl-1),numTrackParams,numTrackParams) = topDiagonalMatrixFill.transpose();
+            }
+
+            else if (paramMeasured[3][index] != noHit)
+            { 
+              topDiagonalMatrixFill.bottomRightCorner<2,2>() = tempMatrix.bottomRightCorner<2,2>();
+              combinedTotalErrorCorrelationMatrix.block(numTrackParams*(ipl-1),numTrackParams*(index-1),numTrackParams,numTrackParams) = topDiagonalMatrixFill;
+              combinedTotalErrorCorrelationMatrix.block(numTrackParams*(index-1),numTrackParams*(ipl-1),numTrackParams,numTrackParams) = topDiagonalMatrixFill.transpose();
+            }
+       }
+     }
+   
+
+
 /////////////////////////////////////////////////////////////////////////////////////
 #if MATRIXDEBUG
      // Debug printing
@@ -1413,9 +1602,19 @@ for(int ipl=0;ipl<maxNumPlanes;ipl++) {
 #endif
 /////////////////////////////////////////////////////////////////////////////////////
 
+     for (int ipl = 1; ipl < maxNumPlanes; ++ipl)
+     {
+       combinedTransportMatrices.block(numTrackParams*(ipl-1),0,numTrackParams,numTrackParams) = transportMatrixBegToEnd[ipl];
+     }
+#if MATRIXDEBUG
+     G4cout << "Combined 5N x 5 transport matrix: " << G4endl << combinedTransportMatrices << G4endl;
+#endif
+
+/////////////////////////////////////////////////////////////////////////////////////     
+
 //       Form the covariance matrix for the trial solution:
 //       ==================================================
-
+/*
       for (int ipl = 0; ipl < maxNumPlanes; ++ipl)
       {
         cov.push_back(Eigen::MatrixXd::Zero(5,5));
@@ -1438,6 +1637,28 @@ for(int ipl=0;ipl<maxNumPlanes;ipl++) {
                covarianceTotal = covarianceTotal + cov[ipl];
                 // This whole thing will then need to be inverted or used in an Eigen solve method.
       }
+*/      
+/////////////////////////////////////////////////////////////////////////////////////
+
+      // Form the overall 5x5 covariance matrix, equation 33 in the geane manual.
+
+
+     INVERTEDgiantWeightMatrix = combinedTotalErrorCorrelationMatrix.inverse();
+
+     // G4cout << G4endl << "Combined 5N x 5N weight matrix: " << G4endl << combinedTotalErrorCorrelationMatrix << G4endl;
+          // G4cout << G4endl << "Combined 5N x 5N weight matrix bottom right block: " << G4endl << combinedTotalErrorCorrelationMatrix.bottomRightCorner(15,15) << G4endl;
+               // G4cout << G4endl << "Combined 5N x 5N weight matrix bottom right block: " << G4endl << INVERTEDgiantWeightMatrix.bottomRightCorner(15,15) << G4endl;
+                              // G4cout << G4endl << "Combined 5N x 5N weight matrix top left block: " << G4endl << INVERTEDgiantWeightMatrix.topLeftCorner(15,15) << G4endl;
+
+
+// std::exit(0);
+
+
+
+        covarianceTotal = (combinedTransportMatrices.transpose())*INVERTEDgiantWeightMatrix*combinedTransportMatrices;
+        // covarianceTotal = (combinedTransportMatrices.transpose())*combinedTotalErrorCorrelationMatrix*combinedTransportMatrices; // Before taking the inverse.
+        // G4cout << " covariance matrix out front, should be 5x5: " << covarianceTotal << G4endl << G4endl;
+
 
 /////////////////////////////////////////////////////////////////////////////////////
 
@@ -1512,29 +1733,51 @@ for(int ipl=0;ipl<maxNumPlanes;ipl++) {
     //       Now multiply out the right side of equation 26 (within the sum).
     //       ======================================================/
 
-             for(int ipl=0;ipl<maxNumPlanes;ipl++) {
-               trialTrajSinglePlane.push_back(Eigen::VectorXd::Zero(5));
-               trialTrajSinglePlane[ipl] = (transportMatrixBegToEnd[ipl].transpose())*INVsigmaErrorMatrices[ipl]*residuals[ipl];
+
+
+/////////////////////////////////////////////////////////////////////////////////////
+             for (int ipl = 1; ipl < maxNumPlanes; ++ipl)
+             {
+               combinedResiduals.block(numTrackParams*(ipl-1),0,numTrackParams,1) = residuals[ipl];
              }
+
+#if MATRIXDEBUG 
+             // G4cout << "Combined residuals block vector is: " << combinedResiduals << G4endl;
+             G4cout << "Combined residuals block vector bottom tail: " << G4endl << combinedResiduals.tail(15) << G4endl;
+#endif 
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+             // for(int ipl=0;ipl<maxNumPlanes;ipl++) {
+             //   trialTrajSinglePlane.push_back(Eigen::VectorXd::Zero(5));
+             //   trialTrajSinglePlane[ipl] = (transportMatrixBegToEnd[ipl].transpose())*INVsigmaErrorMatrices[ipl]*residuals[ipl];
+             // }
 
      //       Sum over all planes: --- This is the right side of equation 26 or 32 from the geane manual paper.
      //       ====================
 
-            trialTrajectoryAllPlanes = Eigen::VectorXd::Zero(5);
-             for(int ipl = 1; ipl<maxNumPlanes; ipl++) { // Sum starts at 1.
-               trialTrajectoryAllPlanes = trialTrajectoryAllPlanes + trialTrajSinglePlane[ipl];
-             }
+            // trialTrajectoryAllPlanes = Eigen::VectorXd::Zero(5);
+            //  for(int ipl = 1; ipl<maxNumPlanes; ipl++) { // Sum starts at 1.
+            //    trialTrajectoryAllPlanes = trialTrajectoryAllPlanes + trialTrajSinglePlane[ipl];
+            //  }
 
      //       Calculate the solution:   this is deltaPsiNought from equation 26 or 32 of the geane manual paper
      //       =======================
 
              // deltaPsiNought = Eigen::VectorXd::Zero(5);
-             deltaPsiNought = covarianceTotal.colPivHouseholderQr().solve(trialTrajectoryAllPlanes); // Better way to go about solving for deltaPsiNought without having to invert the covariance matrix.
+             // deltaPsiNought = covarianceTotal.colPivHouseholderQr().solve(trialTrajectoryAllPlanes); // Better way to go about solving for deltaPsiNought without having to invert the covariance matrix.
              // Solves the equation Ax = b for x, where A = covarianceTotal, b = trialTrajectoryAllPlanes, and x = deltaPsiNought.
+
+
+             trialTrajectoryAllPlanes = combinedTransportMatrices.transpose()*INVERTEDgiantWeightMatrix*combinedResiduals;              
+             // trialTrajectoryAllPlanes = combinedTransportMatrices.transpose()*combinedTotalErrorCorrelationMatrix*combinedResiduals;
+             // G4cout << " trial trajectory all planes, should be 5x1: " << trialTrajectoryAllPlanes << G4endl;
+             deltaPsiNought = covarianceTotal.colPivHouseholderQr().solve(trialTrajectoryAllPlanes); 
+
 
 #if MATRIXDEBUG
              // Debug printing
-             printf("starting parameter deltas \n");
+             printf("\n starting parameter deltas \n");
              for(int i=0;i<5;i++) {
                printf("parameter %d \n",i);
                std::cout << deltaPsiNought[i] << std::endl; 
@@ -1542,15 +1785,17 @@ for(int ipl=0;ipl<maxNumPlanes;ipl++) {
 #endif
 
             // Form the chi^2 for a single plane then add them all up to get a total chi^2 for the potential track - equation 23 in the GEANE manual.
-             for(int ipl=0;ipl<maxNumPlanes;ipl++) {
-               chiSquaredSinglePlane[ipl] = (residuals[ipl].transpose())*INVsigmaErrorMatrices[ipl]*residuals[ipl];
-             }
+            // for(int ipl=0;ipl<maxNumPlanes;ipl++) {
+            //    chiSquaredSinglePlane[ipl] = (residuals[ipl].transpose())*INVsigmaErrorMatrices[ipl]*residuals[ipl];
+            //  } 
 
-             for(int ipl = 1; ipl<maxNumPlanes; ipl++) { // Sum starts at 1.
-               chiSquaredTotal = chiSquaredTotal + chiSquaredSinglePlane[ipl];
-             }
+            //  for(int ipl = 1; ipl<maxNumPlanes; ipl++) { // Sum starts at 1.
+            //    chiSquaredTotal = chiSquaredTotal + chiSquaredSinglePlane[ipl];
+            //  }
 
-             eventChiSquared = chiSquaredTotal;
+             // eventChiSquared = chiSquaredTotal;
+             // eventChiSquared = combinedResiduals.transpose()*combinedTotalErrorCorrelationMatrix*combinedResiduals;
+              eventChiSquared = combinedResiduals.transpose()*INVERTEDgiantWeightMatrix*combinedResiduals;
 
              // G4cout << "Chi^2 for the track is: " << chiSquaredTotal << G4endl;
 
@@ -1711,10 +1956,63 @@ void ResidualPlots(){
 
 /////////////////////////////////////////////////////////////////////////////////////
 
+  TGraph* materialErrorGraph = new TGraph(maxNumPlanes, pointNo, materialErrorPerPlane);
+  materialErrorGraph->SetTitle("Material Error Per Plane; Plane Number; Error (um)");
+  // materialErrorGraph->GetXaxis()->SetRangeUser(0,8);
+  materialErrorGraph->GetYaxis()->SetRangeUser(0.,200);
+  materialErrorGraph->SetMarkerStyle(20);
+  materialErrorGraph->SetMarkerColor(1);
+  materialErrorGraph->Draw("AP"); //A for "all" or something, nothing plots without it. L for connected lines between points, and P for dot style points.
+
+  myCanvas->SaveAs("../Plots/MaterialErrorPerPlane.png");
+
+  double planeXPositions[maxNumPlanes];
+  planeXPositions[0] = 0.;
+
+  for (int planeNum = 1; planeNum < maxNumPlanes; ++planeNum)
+  {
+          G4double truthPlaneTargetX=0.;
+          // Have to do some arithmatic to determine how to change truthPlaneTargetX with a single for-loop for 32 planes.
+
+          truthPlaneTargetX += int((planeNum-1)/4.) * myPhysicalWorld->GetmoduleSeparation(); // Add module separation.
+
+          bool layerSep = FALSE;
+          if (planeNum % 2 == 0)
+          {
+            truthPlaneTargetX += myPhysicalWorld->GetlayerSeparation(); // Add layer separation.
+            layerSep = TRUE;
+          }
+
+          double intpart;
+          double fractpartone = std::modf(planeNum/4. , &intpart);
+          double fractparttwo = std::modf((planeNum+1)/4. , &intpart);
+          bool UVSep = FALSE;
+          if (fractpartone == 0 || fractparttwo == 0)
+          {
+            truthPlaneTargetX += myPhysicalWorld->GetUVSeparation(); // Add UV separation.
+            UVSep = TRUE;
+          }
+
+          planeXPositions[planeNum] = truthPlaneTargetX;
+  }
+
+  TGraph* materialErrorGraphDistance = new TGraph(maxNumPlanes, planeXPositions, materialErrorPerPlane);
+  materialErrorGraphDistance->SetTitle("Material Error Per Distance; Distance (cm); Error (um)");
+  // materialErrorGraphDistance->GetXaxis()->SetRangeUser(0,8);
+  materialErrorGraphDistance->GetYaxis()->SetRangeUser(0.,200);
+  materialErrorGraphDistance->SetMarkerStyle(20);
+  materialErrorGraphDistance->SetMarkerColor(1);
+  materialErrorGraphDistance->Draw("AP"); //A for "all" or something, nothing plots without it. L for connected lines between points, and P for dot style points.
+
+  myCanvas->SaveAs("../Plots/MaterialErrorDistance.png");
+
+
+///////////////////////////////////////////////////////////////////////////////////// 
+
   TGraph* RMSPerPlaneU = new TGraph(maxNumPlanes, pointNo, URMSarray);
   RMSPerPlaneU->SetTitle("RMS; Plane Number; RMS (mm)");
   // RMSPerPlaneU->GetXaxis()->SetRangeUser(0,8);
-  RMSPerPlaneU->GetYaxis()->SetRangeUser(0.,.5);
+  RMSPerPlaneU->GetYaxis()->SetRangeUser(0.,.15);
   RMSPerPlaneU->SetMarkerStyle(20);
   RMSPerPlaneU->SetMarkerColor(1);
   RMSPerPlaneU->Draw("AP"); //A for "all" or something, nothing plots without it. L for connected lines between points, and P for dot style points.

@@ -4,6 +4,26 @@
 		"selected_items":
 		[
 			[
+				"plane",
+				"planeXPositions"
+			],
+			[
+				"numPl",
+				"numEventsWith32Planes"
+			],
+			[
+				"material",
+				"materialErrorPerPlane"
+			],
+			[
+				"numEve",
+				"numEventsWith32Planes"
+			],
+			[
+				"passNu",
+				"passNumber"
+			],
+			[
 				"Chi",
 				"ChiSquaredsPerPlane"
 			],
@@ -153,10 +173,6 @@
 			],
 			[
 				"nume",
-				"numEventsWithAFirstPassFix"
-			],
-			[
-				"numEve",
 				"numEventsWithAFirstPassFix"
 			],
 			[
@@ -336,10 +352,6 @@
 				"fillTransformationMatrix0"
 			],
 			[
-				"plane",
-				"planeNum"
-			],
-			[
 				"emp",
 				"emptyMatrix"
 			],
@@ -502,31 +514,11 @@
 			[
 				"tru",
 				"trueDeltas"
-			],
-			[
-				"GasSt",
-				"GasStrawU"
-			],
-			[
-				"logicGass",
-				"logicGasStrawU"
-			],
-			[
-				"out",
-				"outerRadiusOfTheGas"
 			]
 		]
 	},
 	"buffers":
 	[
-		{
-			"file": "source/errprop.cc",
-			"settings":
-			{
-				"buffer_size": 88913,
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -696,23 +688,25 @@
 		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version",
 		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/Extras",
 		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/Plots",
-		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/Plots/Plane0",
-		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/Plots/Plane7",
 		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source",
 		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/include",
 		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/src"
 	],
 	"file_history":
 	[
-		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/src/BasicPrimaryGeneratorAction.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/errprop - before Jacobian deltaTrack.cc",
 		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/src/BasicTrackerSD.cc",
-		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/basic.cc",
 		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/src/BasicDetectorContruction.cc",
-		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/src/MyParallelWorld.cc",
 		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/errprop.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/Plots/ChiSquaredsPerPlane/ChiSquaredsPlanesHit32.png",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/Plots/UVPlaneRMS.png",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/Plots/ChiSquaredsPerPlane/ChiSquaredsPlanesHit31.png",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/.gitignore",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/src/BasicPrimaryGeneratorAction.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/basic.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/src/MyParallelWorld.cc",
 		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/include/BasicDetectorConstruction.hh",
 		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/Plots/GuessPassResidualFixHistogram.png",
-		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/Plots/UVPlaneRMS.png",
 		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/Plots/Plane5/UPositionResiduals.png",
 		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/Plots/YZPlaneRMS.png",
 		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/Plots/Plane30/VPositionResiduals.png",
@@ -827,11 +821,7 @@
 		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/User/SublimeXiki.sublime-settings",
 		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/Package Control/Package Control.sublime-settings",
 		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/Default",
-		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/MacTerminal/Default.sublime-keymap",
-		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/Glue/Glue.sublime-settings",
-		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/MacTerminal/MacTerminal.sublime-settings",
-		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/User/Glue.sublime-settings",
-		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/SublimeXiki/SublimeXiki.sublime-settings"
+		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/MacTerminal/Default.sublime-keymap"
 	],
 	"find":
 	{
@@ -853,6 +843,11 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"Vacuum",
+			"materialErrorGraph",
+			"RMSPerPlaneU",
+			"Vacuum",
+			"ChiSquaredProbHistogram",
 			"numPlanesHit",
 			"ChiSquaredHistogramPlanesHit",
 			"YPositionResiduals",
@@ -975,12 +970,7 @@
 			"FirstPassFixHistogram",
 			"numEventsWithAFirstPassFix",
 			"ZYtoUVcoordinateTransformationMatrix",
-			"numEventsWithASecondPassFix",
-			"sumVFixes",
-			"numEventsWithAFirstPassFix",
-			"myGhostWorld",
-			"G4cout",
-			"TotalMomentum"
+			"numEventsWithASecondPassFix"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -1002,98 +992,8 @@
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "source/errprop.cc",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 88913,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								16380,
-								16380
-							]
-						],
-						"settings":
-						{
-							"BracketHighlighterBusy": false,
-							"bh_regions":
-							[
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content"
-							],
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 4559.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				}
 			]
 		}
 	],
