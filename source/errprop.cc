@@ -1288,7 +1288,8 @@ double unmeasured = 1.e300;
 std::vector<Eigen::MatrixXd> INVmaterialErrorMatrices;
 std::vector<Eigen::MatrixXd> INVpropagatedErrorMatrices;
 
-Eigen::MatrixXd INVERTEDgiantWeightMatrix;
+// Eigen::MatrixXd INVERTEDgiantWeightMatrix;
+Eigen::MatrixXd INVERTEDgiantWeightMatrix(numTrackParams*(maxNumPlanes-1),numTrackParams*(maxNumPlanes-1));
 
 
 std::vector<Eigen::MatrixXd> myTransferMatricesGeVcm;
@@ -1300,6 +1301,11 @@ std::vector<Eigen::MatrixXd> errorMatricesBetweenPlanes;
 Eigen::VectorXd combinedResiduals((maxNumPlanes-1)*numTrackParams);
 Eigen::MatrixXd combinedTransportMatrices(numTrackParams*(maxNumPlanes-1),numTrackParams);
 Eigen::MatrixXd combinedTotalErrorCorrelationMatrix(numTrackParams*(maxNumPlanes-1),numTrackParams*(maxNumPlanes-1));
+
+
+std::vector<bool> UplaneHitOrNot;
+std::vector<bool> VplaneHitOrNot;
+
 /////////////////////////////////////////////////////////////////////////////////////
 
 // GeV cm are the better units for the matrix multiplication to work out, otherwise numerical errors can start ocurring with large transport matrices.
@@ -1371,7 +1377,7 @@ for(int ipl=0;ipl<maxNumPlanes;ipl++) {
 
 /////////////////////////////////////////////////////////////////////////////////////
 
-      for (int ipl = 0; ipl < maxNumPlanes; ++ipl)
+      for (int ipl = 0; ipl < maxNumPlanes; ++ipl) // Fill diagonal errors as well as check which planes were hit.
       { 
 
             // For 2x2 case:
@@ -1400,6 +1406,9 @@ for(int ipl=0;ipl<maxNumPlanes;ipl++) {
  #if MATRIXDEBUG            
   G4cout << " Hit neither. " << G4endl;
   #endif
+
+              UplaneHitOrNot.push_back(false); 
+              VplaneHitOrNot.push_back(false);
               continue; // Leave the sigma error matrix as zeros.
             }
 
@@ -1412,6 +1421,8 @@ for(int ipl=0;ipl<maxNumPlanes;ipl++) {
               // INVmaterialErrorMatrices[ipl](4,4) = 10000.;
 
               mainDiagonalErrorMatrices[ipl](4,4) = errorMatricesGeVcm[ipl](4,4) + (.01*.01);
+              UplaneHitOrNot.push_back(true);
+              VplaneHitOrNot.push_back(false);
             }
 
             else if (paramMeasured[4][ipl] == noHit && paramMeasured[3][ipl] != noHit)
@@ -1423,11 +1434,13 @@ for(int ipl=0;ipl<maxNumPlanes;ipl++) {
               // INVmaterialErrorMatrices[ipl](3,3) = 10000.;
 
               mainDiagonalErrorMatrices[ipl](3,3) = errorMatricesGeVcm[ipl](3,3) + (.01*.01);
+              UplaneHitOrNot.push_back(false);
+              VplaneHitOrNot.push_back(true);
             }
 
       }
 
-
+// std::cout << std::endl << "sizes " << UplaneHitOrNot.size() << " " << VplaneHitOrNot.size() << std::endl;
 
 /////////////////////////////////////////////////////////////////////////////////////
 #if MATRIXDEBUG
@@ -1640,10 +1653,115 @@ for(int ipl=0;ipl<maxNumPlanes;ipl++) {
 */      
 /////////////////////////////////////////////////////////////////////////////////////
 
+      // Reduce matrix to make inversions faster.
+
+      // std::cout << std::endl << "Total error matrix before removal: " << G4endl << combinedTotalErrorCorrelationMatrix.topLeftCorner(15,15) << std::endl;
+
+      for (int ipl = 0; ipl < maxNumPlanes-1; ++ipl) // Remove momentum rows and columns.
+      {
+          // std::cout << std::endl << "Debug Got Here " << ipl << std::endl;
+
+          combinedTotalErrorCorrelationMatrix.block(ipl*numTrackParams,0,1,combinedTotalErrorCorrelationMatrix.cols()).setConstant(noHit);
+          combinedTotalErrorCorrelationMatrix.block(ipl*numTrackParams+1,0,1,combinedTotalErrorCorrelationMatrix.cols()).setConstant(noHit);
+          combinedTotalErrorCorrelationMatrix.block(ipl*numTrackParams+2,0,1,combinedTotalErrorCorrelationMatrix.cols()).setConstant(noHit);
+
+          combinedTotalErrorCorrelationMatrix.block(0,ipl*numTrackParams,combinedTotalErrorCorrelationMatrix.rows(),1).setConstant(noHit);
+          combinedTotalErrorCorrelationMatrix.block(0,ipl*numTrackParams+1,combinedTotalErrorCorrelationMatrix.rows(),1).setConstant(noHit);
+          combinedTotalErrorCorrelationMatrix.block(0,ipl*numTrackParams+2,combinedTotalErrorCorrelationMatrix.rows(),1).setConstant(noHit);
+
+      }
+
+
+      for (int ipl = 0; ipl < UplaneHitOrNot.size(); ++ipl) // Remove non-hit U or V rows and columns.
+      {
+
+        if (UplaneHitOrNot.at(ipl) == false)
+        {
+          combinedTotalErrorCorrelationMatrix.block(ipl*numTrackParams+4,0,1,combinedTotalErrorCorrelationMatrix.cols()).setConstant(noHit);
+          combinedTotalErrorCorrelationMatrix.block(0,ipl*numTrackParams+4,combinedTotalErrorCorrelationMatrix.rows(),1).setConstant(noHit);
+        }
+
+        if (VplaneHitOrNot.at(ipl) == false)
+        {
+          combinedTotalErrorCorrelationMatrix.block(ipl*numTrackParams+3,0,1,combinedTotalErrorCorrelationMatrix.cols()).setConstant(noHit);
+          combinedTotalErrorCorrelationMatrix.block(0,ipl*numTrackParams+3,combinedTotalErrorCorrelationMatrix.rows(),1).setConstant(noHit);
+        }
+      }
+
+      // std::cout << std::endl << "Total error matrix after removal top left: " << G4endl << combinedTotalErrorCorrelationMatrix.topLeftCorner(15,15) << std::endl;
+
+
+      Eigen::MatrixXd reducedMatrix(numPlanesHit-1,numPlanesHit-1); // -1 because I think this includes the 0 plane as a plane hit
+      // Eigen::MatrixXd reducedMatrixInverse(numPlanesHit-1,numPlanesHit-1);
+
+      int ireduced = 0;
+      int jreduced = 0;
+
+      // std::cout << std::endl << "Debug Got Here " << reducedMatrix << std::endl;
+
+      // std::vector<int> rowPos;
+      // std::vector<int> colPos;
+
+      Eigen::MatrixXd rowPositions(numPlanesHit-1,numPlanesHit-1);
+      Eigen::MatrixXd colPositions(numPlanesHit-1,numPlanesHit-1);
+
+
+      for (int i = 0; i < combinedTotalErrorCorrelationMatrix.rows(); ++i)
+      {
+        for (int j = 0; j < combinedTotalErrorCorrelationMatrix.cols(); ++j)
+        {
+          // std::cout << std::endl << "Debug Got Here" << i << " " << j << std::endl;
+
+          if (combinedTotalErrorCorrelationMatrix(i,j) != noHit)
+          {
+
+            // std::cout << std::endl << "ired jred: " << ireduced << " " << jreduced << std::endl;
+
+            reducedMatrix(ireduced,jreduced) = combinedTotalErrorCorrelationMatrix(i,j);
+            // rowPos.push_back(i);
+            // colPos.push_back(j);
+
+            rowPositions(ireduced,jreduced) = i;
+            colPositions(ireduced,jreduced) = j;
+
+            if (jreduced < numPlanesHit-2) // -2 for the same reason as above, -1 again for starting jreduced at 0
+            { jreduced++; }
+            else { ireduced++; jreduced = 0;}
+
+            // std::cout << std::endl << "Reduced matrix: " << G4endl << reducedMatrix << std::endl;
+
+          }
+        }
+      }
+
+            // std::cout << std::endl << "Reduced matrix: " << G4endl << reducedMatrix << std::endl;
+
+            Eigen::MatrixXd reducedMatrixInverse = reducedMatrix.inverse();
+
+            // std::cout << std::endl << "Reduced matrix inverse: " << G4endl << reducedMatrixInverse << std::endl;
+
+
+            INVERTEDgiantWeightMatrix.setZero();
+
+            for (int i = 0; i < reducedMatrixInverse.rows(); ++i)
+            {
+              for (int j = 0; j < reducedMatrixInverse.cols(); ++j)
+              {
+                INVERTEDgiantWeightMatrix(rowPositions(i,j),colPositions(i,j)) = reducedMatrixInverse(i,j);
+              }
+            }
+
+
+                              // G4cout << G4endl << "Combined 5N x 5N weight matrix top left block: " << G4endl << INVERTEDgiantWeightMatrix.topLeftCorner(15,15) << G4endl;
+
+// std::exit(0); 
+/////////////////////////////////////////////////////////////////////////////////////      
+
       // Form the overall 5x5 covariance matrix, equation 33 in the geane manual.
 
 
-     INVERTEDgiantWeightMatrix = combinedTotalErrorCorrelationMatrix.inverse();
+
+     // INVERTEDgiantWeightMatrix = combinedTotalErrorCorrelationMatrix.inverse();
 
      // G4cout << G4endl << "Combined 5N x 5N weight matrix: " << G4endl << combinedTotalErrorCorrelationMatrix << G4endl;
           // G4cout << G4endl << "Combined 5N x 5N weight matrix bottom right block: " << G4endl << combinedTotalErrorCorrelationMatrix.bottomRightCorner(15,15) << G4endl;
@@ -2012,7 +2130,7 @@ void ResidualPlots(){
   TGraph* RMSPerPlaneU = new TGraph(maxNumPlanes, pointNo, URMSarray);
   RMSPerPlaneU->SetTitle("RMS; Plane Number; RMS (mm)");
   // RMSPerPlaneU->GetXaxis()->SetRangeUser(0,8);
-  RMSPerPlaneU->GetYaxis()->SetRangeUser(0.,.15);
+  RMSPerPlaneU->GetYaxis()->SetRangeUser(0.,.25);
   RMSPerPlaneU->SetMarkerStyle(20);
   RMSPerPlaneU->SetMarkerColor(1);
   RMSPerPlaneU->Draw("AP"); //A for "all" or something, nothing plots without it. L for connected lines between points, and P for dot style points.
