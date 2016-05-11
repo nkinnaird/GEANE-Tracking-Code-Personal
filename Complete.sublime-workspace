@@ -4,6 +4,118 @@
 		"selected_items":
 		[
 			[
+				"row",
+				"rowPositions"
+			],
+			[
+				"colPos",
+				"colPositions"
+			],
+			[
+				"num",
+				"numPlanesHit-1"
+			],
+			[
+				"Eig",
+				"Eigen::MatrixXd"
+			],
+			[
+				"reduceMat",
+				"reducedMatrixInverse"
+			],
+			[
+				"ve",
+				"vector	std::vector"
+			],
+			[
+				"combine",
+				"combinedTotalErrorCorrelationMatrix"
+			],
+			[
+				"numPlane",
+				"numPlanesHit"
+			],
+			[
+				"numPla",
+				"numPlanesHit"
+			],
+			[
+				"EIg",
+				"Eigen::MatrixXd"
+			],
+			[
+				"combin",
+				"combinedTotalErrorCorrelationMatrix"
+			],
+			[
+				"error",
+				"errorMatricesBetweenPlanes"
+			],
+			[
+				"tempMat",
+				"tempMatrix"
+			],
+			[
+				"temp",
+				"tempMatrix"
+			],
+			[
+				"comb",
+				"combinedTotalErrorCorrelationMatrix"
+			],
+			[
+				"tempMatr",
+				"tempMatrix2"
+			],
+			[
+				"errorm",
+				"errorMatricesGeVcm"
+			],
+			[
+				"main",
+				"mainDiagonalErrorMatrices"
+			],
+			[
+				"INVs",
+				"INVsideDiagonalErrorMatrices"
+			],
+			[
+				"INV",
+				"INVpropagatedErrorMatrices"
+			],
+			[
+				"bottom",
+				"bottomRightCorner<2,2"
+			],
+			[
+				"Egein",
+				"Eigen::MatrixXd"
+			],
+			[
+				"covaria",
+				"covarianceTotal"
+			],
+			[
+				"errorMat",
+				"errorMatricesGeVcm"
+			],
+			[
+				"errorMa",
+				"errorMatricesBetweenPlanes"
+			],
+			[
+				"Ei",
+				"Eigen::MatrixXd"
+			],
+			[
+				"trasport",
+				"transportMatrixBegToEnd"
+			],
+			[
+				"Eigen",
+				"Eigen::MatrixXd"
+			],
+			[
 				"plane",
 				"planeXPositions"
 			],
@@ -52,20 +164,12 @@
 				"deltaPsiNoughtYZ"
 			],
 			[
-				"Eig",
-				"Eigen::VectorXd"
-			],
-			[
 				"delta",
 				"deltaPsiNought"
 			],
 			[
 				"Jaco",
 				"JacobianToVU"
-			],
-			[
-				"error",
-				"errorMatricesGeVcm"
 			],
 			[
 				"zer",
@@ -82,10 +186,6 @@
 			[
 				"Jac",
 				"JacobianToVU"
-			],
-			[
-				"Eigen",
-				"Eigen::MatrixXd"
 			],
 			[
 				"deltaS",
@@ -126,10 +226,6 @@
 			[
 				"bott",
 				"bottomRightCorner<2,2"
-			],
-			[
-				"errorMat",
-				"errorMatricesGeVcmInVU"
 			],
 			[
 				"Eige",
@@ -182,10 +278,6 @@
 			[
 				"curren",
 				"currentEventNum"
-			],
-			[
-				"num",
-				"numTrackParams"
 			],
 			[
 				"rota",
@@ -422,103 +514,19 @@
 			[
 				"part",
 				"particleStartPos"
-			],
-			[
-				"truthPlane",
-				"truthPlaneHalfX"
-			],
-			[
-				"PlanePos",
-				"PlanePositionMeasured"
-			],
-			[
-				"PositionMeasure",
-				"PositionMeasuredY"
-			],
-			[
-				"Mea",
-				"MeasurementInaccuracyY"
-			],
-			[
-				"PlanePosi",
-				"PlanePositionTruth"
-			],
-			[
-				"Position",
-				"PositionMeasured"
-			],
-			[
-				"my",
-				"myPhysicalWorld"
-			],
-			[
-				"to",
-				"to_string"
-			],
-			[
-				"RMS",
-				"RMSPerPlaneZ"
-			],
-			[
-				"res",
-				"residualsPerPlaneZ"
-			],
-			[
-				"resid",
-				"residualsPerPlaneY"
-			],
-			[
-				"trial",
-				"trialTrajSinglePlane"
-			],
-			[
-				"Matrix",
-				"MatrixXd"
-			],
-			[
-				"transp",
-				"transportMatrixBegToEnd"
-			],
-			[
-				"myTrans",
-				"myTransferMatricesMeVmm"
-			],
-			[
-				"transportMatrix",
-				"transportMatrixBegToEnd"
-			],
-			[
-				"sigma",
-				"sigmaErrorMatrices"
-			],
-			[
-				"Matr",
-				"MatrixXd"
-			],
-			[
-				"tes",
-				"testauto"
-			],
-			[
-				"YPos",
-				"YPositionResidual"
-			],
-			[
-				"YPosti",
-				"YPositionResidual"
-			],
-			[
-				"PLane",
-				"PlaneTracebackResiduals"
-			],
-			[
-				"tru",
-				"trueDeltas"
 			]
 		]
 	},
 	"buffers":
 	[
+		{
+			"file": "source/errprop.cc",
+			"settings":
+			{
+				"buffer_size": 108283,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -686,21 +694,28 @@
 	"expanded_folders":
 	[
 		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version",
-		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/Extras",
 		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/Plots",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/Plots/ChiSquaredsPerPlane",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/Plots/Plane0",
 		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source",
-		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/include",
 		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/src"
 	],
 	"file_history":
 	[
-		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/errprop - before Jacobian deltaTrack.cc",
-		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/src/BasicTrackerSD.cc",
-		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/src/BasicDetectorContruction.cc",
+		"/Users/NickPC/.profile",
 		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/errprop.cc",
-		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/Plots/ChiSquaredsPerPlane/ChiSquaredsPlanesHit32.png",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/errprop .cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/errprop - full matrix inversion.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/src/BasicDetectorContruction.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/errprop - before full covariance.cc",
+		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/User/Default (OSX).sublime-keymap",
+		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
 		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/Plots/UVPlaneRMS.png",
 		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/Plots/ChiSquaredsPerPlane/ChiSquaredsPlanesHit31.png",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/Plots/MaterialErrorDistance.png",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/errprop - before Jacobian deltaTrack.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/src/BasicTrackerSD.cc",
+		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/Plots/ChiSquaredsPerPlane/ChiSquaredsPlanesHit32.png",
 		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/.gitignore",
 		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/src/BasicPrimaryGeneratorAction.cc",
 		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/source/basic.cc",
@@ -711,10 +726,8 @@
 		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/Plots/YZPlaneRMS.png",
 		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/Plots/Plane30/VPositionResiduals.png",
 		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Complete Version/Extras/G4ErrorSurfaceTrajState.cc",
-		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/User/Default (OSX).sublime-keymap",
 		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/User/Diffy.sublime-settings",
 		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/Diffy/Diffy.sublime-settings",
-		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
 		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
 		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/User/SublimeLinter.sublime-settings",
 		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/Default/Default (OSX).sublime-keymap",
@@ -784,7 +797,6 @@
 		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/SublimeLinter/Default (OSX).sublime-keymap",
 		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/Alignment/Default (OSX).sublime-keymap",
 		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/Terminal/Base File.sublime-settings",
-		"/Users/NickPC/.profile",
 		"/Users/NickPC/Desktop/gm2buildoutput",
 		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Basic GEANT4E/source/include/BasicDetectorConstruction.hh",
 		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Basic GEANT4E/source/src/RootInput.cc",
@@ -817,11 +829,7 @@
 		"/Users/NickPC/Documents/Fermilab/Simulation and Tracking/DevelopmentArea/Toy Model Straw Tracker/source/include/HistoManager.hh",
 		"/Users/NickPC/Documents/geant4.10.1.p01-build/geant4make.sh",
 		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/SublimeLinter/SublimeLinter.sublime-settings",
-		"/Users/NickPC/Documents/root5.34.30-build/bin/thisroot.sh",
-		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/User/SublimeXiki.sublime-settings",
-		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/Package Control/Package Control.sublime-settings",
-		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/Default",
-		"/Users/NickPC/Library/Application Support/Sublime Text 3/Packages/MacTerminal/Default.sublime-keymap"
+		"/Users/NickPC/Documents/root5.34.30-build/bin/thisroot.sh"
 	],
 	"find":
 	{
@@ -843,6 +851,24 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"trackParamMeasuredExtra",
+			"YPositionResiduals",
+			"setZero",
+			"INVmaterialErrorMatrices",
+			"ipl+1",
+			"Vacuum",
+			"Error",
+			"error",
+			"myTransferMatricesGeVcm",
+			"tempMatrix3",
+			"Vacuum",
+			"i",
+			"INVsigmaErrorMatrices",
+			"INVpropagatedErrorMatrices",
+			"INVsigmaErrorMatrices",
+			"32",
+			"Vacuum",
+			"combinedTotalErrorCorrelationMatrix",
 			"Vacuum",
 			"materialErrorGraph",
 			"RMSPerPlaneU",
@@ -952,25 +978,7 @@
 			"vzU, wyV,",
 			"vzU",
 			"wyV, vzU,",
-			"Vacuum",
-			"wyV",
-			"ZYtoUVcoordinateTransformationMatrix",
-			"vzU",
-			"trackParamPredicted",
-			"position",
-			"guessFixLeg",
-			"GuessPassUFixHistogram",
-			"sumUFixes",
-			"GuessPassUFixHistogram",
-			"g4emgr",
-			"legYZ",
-			"GuessPassUFixHistogram",
-			"GuessPassFixHistogram",
-			"initialUPosChange",
-			"FirstPassFixHistogram",
-			"numEventsWithAFirstPassFix",
-			"ZYtoUVcoordinateTransformationMatrix",
-			"numEventsWithASecondPassFix"
+			"Vacuum"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -992,8 +1000,98 @@
 	"groups":
 	[
 		{
+			"selected": 0,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "source/errprop.cc",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 108283,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								23353,
+								23353
+							]
+						],
+						"settings":
+						{
+							"BracketHighlighterBusy": false,
+							"bh_regions":
+							[
+								"bh_round",
+								"bh_round_center",
+								"bh_round_open",
+								"bh_round_close",
+								"bh_round_content",
+								"bh_default",
+								"bh_default_center",
+								"bh_default_open",
+								"bh_default_close",
+								"bh_default_content",
+								"bh_square",
+								"bh_square_center",
+								"bh_square_open",
+								"bh_square_close",
+								"bh_square_content",
+								"bh_curly",
+								"bh_curly_center",
+								"bh_curly_open",
+								"bh_curly_close",
+								"bh_curly_content",
+								"bh_single_quote",
+								"bh_single_quote_center",
+								"bh_single_quote_open",
+								"bh_single_quote_close",
+								"bh_single_quote_content",
+								"bh_unmatched",
+								"bh_unmatched_center",
+								"bh_unmatched_open",
+								"bh_unmatched_close",
+								"bh_unmatched_content",
+								"bh_c_define",
+								"bh_c_define_center",
+								"bh_c_define_open",
+								"bh_c_define_close",
+								"bh_c_define_content",
+								"bh_double_quote",
+								"bh_double_quote_center",
+								"bh_double_quote_open",
+								"bh_double_quote_close",
+								"bh_double_quote_content",
+								"bh_tag",
+								"bh_tag_center",
+								"bh_tag_open",
+								"bh_tag_close",
+								"bh_tag_content",
+								"bh_angle",
+								"bh_angle_center",
+								"bh_angle_open",
+								"bh_angle_close",
+								"bh_angle_content",
+								"bh_regex",
+								"bh_regex_center",
+								"bh_regex_open",
+								"bh_regex_close",
+								"bh_regex_content"
+							],
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 11969.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],
