@@ -1,9 +1,10 @@
 // NOTE: Coordinate systems are weird, read carefully. In my own toy world, X is the particle direction, and Y and Z are the vertical and horizontal axes respectively. 
-// The tracking group uses U and V to represent straw orientations, with U angled 7.5 degrees clockwise of the vertical, and V angled 7.5 degrees counterclockwise of the vertical. 
-// Since the straws actually measured position in a plane perpendicular to their length, the U and V axes in the code correspond to axes angled 7.5 degrees from the horizontal (Z) clockwise and counterclockwise respectively, with positive U and V both being positive in Z. 
+// The tracking group uses U and V to represent straw orientations, with U angled 7.5 degrees counterclockwise of the vertical, and V angled 7.5 degrees clockwise of the vertical. 
+// Particles from the beam will hit the U layer first, where the bottom edge is closest to the center of the ring.
+// Since the straws actually measured position in a plane perpendicular to their length, the U and V axes in the code correspond to axes angled 7.5 degrees from the horizontal (Z) counterclockwise and clockwise respectively, with positive U and V both being positive in Z. 
 // GEANT4E uses a separate U, V, and W coordinate system (with correspondingly named varibles and methods) to correspond to arbitrarily oriented detector planes. 
-// To connect to my system, U = X, V = V, and W = U, with the GEANE system on the left, and the tracker/my (how I've written things into the code here) system on the right. Hope you got that.
-// Nick Kinnaird, 2/10/16
+// For the GEANE system, V = Y (global), W = Z, U = X. If I switch the GEANE propagation to be in UV instead of YZ, then it would be V = U, W = V, U = X (tracker straws system on the right). Hope you got that.
+// Nick Kinnaird, 5/18/16
 
 
 #include <vector>
@@ -97,17 +98,17 @@ G4ThreeVector vyV(0,1,0); // Set tracing vectors to be orthogonal in YZ, and tra
 G4ThreeVector wzU(0,0,1);
 
 double rotationAngle = 7.5*pi/180;
-// G4ThreeVector vyV(0, std::sin(rotationAngle), std::cos(rotationAngle)); // Non-orthogonal vectors which GEANT4 doesn't like.
-// G4ThreeVector wzU(0, -std::sin(rotationAngle), std::cos(rotationAngle));
+// G4ThreeVector vyV(0, std::sin(rotationAngle), std::cos(rotationAngle)); // Non-orthogonal vectors which GEANT4 doesn't like. Can send info to geant guys and get this fixed at some point.
+// G4ThreeVector wzU(0, -std::sin(rotationAngle), std::cos(rotationAngle)); // These should now be switched I think after switching U and V, 5/18/16.
 
 
-Eigen::Matrix2d YZtoVUcoordinateTransformationMatrix(2,2);
-Eigen::Matrix2d YZtoVUcoordinateTransformationMatrixInverse(2,2);
+Eigen::Matrix2d YZtoUVcoordinateTransformationMatrix(2,2);
+Eigen::Matrix2d YZtoUVcoordinateTransformationMatrixInverse(2,2);
 
-Eigen::MatrixXd YZtoVUcoordinateTransformFiveByFive(5,5);
-Eigen::MatrixXd YZtoVUcoordinateTransformFiveByFiveInverse(5,5);
+Eigen::MatrixXd YZtoUVcoordinateTransformFiveByFive(5,5);
+Eigen::MatrixXd YZtoUVcoordinateTransformFiveByFiveInverse(5,5);
 
-Eigen::MatrixXd JacobianToVU(5,5);
+Eigen::MatrixXd JacobianToUV(5,5);
 
 
 const double noHit = 900000.; // Unphysical double value to signify the lack of a hit within a tracker plane.
@@ -274,27 +275,27 @@ int main(/*int argc,char** argv*/)
 /////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////
 
-YZtoVUcoordinateTransformationMatrix(0,0)=std::sin(rotationAngle);
-YZtoVUcoordinateTransformationMatrix(0,1)=std::cos(rotationAngle);
-YZtoVUcoordinateTransformationMatrix(1,0)=-std::sin(rotationAngle);
-YZtoVUcoordinateTransformationMatrix(1,1)=std::cos(rotationAngle);
+YZtoUVcoordinateTransformationMatrix(0,0)=std::sin(rotationAngle);
+YZtoUVcoordinateTransformationMatrix(0,1)=std::cos(rotationAngle);
+YZtoUVcoordinateTransformationMatrix(1,0)=-std::sin(rotationAngle);
+YZtoUVcoordinateTransformationMatrix(1,1)=std::cos(rotationAngle);
 
-YZtoVUcoordinateTransformationMatrixInverse = YZtoVUcoordinateTransformationMatrix.inverse();
+YZtoUVcoordinateTransformationMatrixInverse = YZtoUVcoordinateTransformationMatrix.inverse();
 
-YZtoVUcoordinateTransformFiveByFive = Eigen::MatrixXd::Zero(5,5);
-YZtoVUcoordinateTransformFiveByFive.bottomRightCorner<2,2>() = YZtoVUcoordinateTransformationMatrix;
-YZtoVUcoordinateTransformFiveByFiveInverse = Eigen::MatrixXd::Zero(5,5);
-YZtoVUcoordinateTransformFiveByFiveInverse.bottomRightCorner<2,2>() = YZtoVUcoordinateTransformationMatrixInverse;
+YZtoUVcoordinateTransformFiveByFive = Eigen::MatrixXd::Zero(5,5);
+YZtoUVcoordinateTransformFiveByFive.bottomRightCorner<2,2>() = YZtoUVcoordinateTransformationMatrix;
+YZtoUVcoordinateTransformFiveByFiveInverse = Eigen::MatrixXd::Zero(5,5);
+YZtoUVcoordinateTransformFiveByFiveInverse.bottomRightCorner<2,2>() = YZtoUVcoordinateTransformationMatrixInverse;
 
-// G4cout << YZtoVUcoordinateTransformationMatrix << G4endl << YZtoVUcoordinateTransformationMatrixInverse << G4endl << YZtoVUcoordinateTransformFiveByFive << G4endl << YZtoVUcoordinateTransformFiveByFiveInverse << G4endl;
+// G4cout << YZtoUVcoordinateTransformationMatrix << G4endl << YZtoUVcoordinateTransformationMatrixInverse << G4endl << YZtoUVcoordinateTransformFiveByFive << G4endl << YZtoUVcoordinateTransformFiveByFiveInverse << G4endl;
 
-JacobianToVU = Eigen::MatrixXd::Zero(5,5);
-JacobianToVU(0,0) = 1.;
-JacobianToVU.block(1,1,2,2) = YZtoVUcoordinateTransformationMatrixInverse;
-JacobianToVU.block(3,3,2,2) = YZtoVUcoordinateTransformationMatrixInverse;
-// JacobianToVU = Eigen::MatrixXd::Identity(5,5);
+JacobianToUV = Eigen::MatrixXd::Zero(5,5);
+JacobianToUV(0,0) = 1.;
+JacobianToUV.block(1,1,2,2) = YZtoUVcoordinateTransformationMatrixInverse;
+JacobianToUV.block(3,3,2,2) = YZtoUVcoordinateTransformationMatrixInverse;
+// JacobianToUV = Eigen::MatrixXd::Identity(5,5);
 
-G4cout << G4endl << "Jacobian between YZ and VU coordinate systems is: " << G4endl << JacobianToVU << G4endl;
+G4cout << G4endl << "Jacobian between YZ and VU coordinate systems is: " << G4endl << JacobianToUV << G4endl;
 
 
 
@@ -306,7 +307,7 @@ G4cout << G4endl << "Jacobian between YZ and VU coordinate systems is: " << G4en
   /////////////////////////////////////////////////////////////////////////////////////
 
                   //Test statement for checking non-orthogonal Jacobian elements.
-
+/*
   G4ThreeVector xv3(-30., 100., -45.);
   G4ThreeVector pv3(900., 50., -200. );
 
@@ -335,12 +336,12 @@ G4cout << G4endl << "Jacobian between YZ and VU coordinate systems is: " << G4en
      }
    } 
 
-  Eigen::MatrixXd YZtransfWithJacobian = YZtransfEigen.inverse() * JacobianToVU;
+  Eigen::MatrixXd YZtransfWithJacobian = YZtransfEigen.inverse() * JacobianToUV;
   // G4cout << "Above elements compared to: " << YZtransfWithJacobian(3,3) << " and " << YZtransfWithJacobian(3,4) << " and " << YZtransfWithJacobian(4,3) << " and " << YZtransfWithJacobian(4,4) << G4endl << G4endl;
   G4cout << "YZ transform matrix multiplied by VU Jacobian: " << G4endl << YZtransfWithJacobian << G4endl;
 
 
-
+*/
 // std::exit(0);
 
 
@@ -523,12 +524,12 @@ void ProcessEvent(int currentEventNum, int numPlanesHit, int arrayPosition)
         PlaneParameterTruth[planeNum]["VPos"] = (InputParameters["VPosition"].at(arrayPosition-numPlanesHit+increment+1));
 
         if (PlaneParameterTruth[planeNum]["UPos"] == noHit)
-        { trackParamMeasured[4][planeNum] = noHit; } // Don't smear the noHit value, as that messes things up later.
-        else { trackParamMeasured[4][planeNum] = PlaneParameterTruth[planeNum]["UPos"]+r3.Gaus(0,.1); } //+0.2*(r3.Rndm()-0.5); // +- 100 RMS microns in the position measurements to simulate smearing. 
+        { trackParamMeasured[3][planeNum] = noHit; } // Don't smear the noHit value, as that messes things up later.
+        else { trackParamMeasured[3][planeNum] = PlaneParameterTruth[planeNum]["UPos"]+r3.Gaus(0,.1); } //+0.2*(r3.Rndm()-0.5); // +- 100 RMS microns in the position measurements to simulate smearing. 
 
         if (PlaneParameterTruth[planeNum]["VPos"] == noHit)
-        { trackParamMeasured[3][planeNum] = noHit; }
-        else { trackParamMeasured[3][planeNum] = PlaneParameterTruth[planeNum]["VPos"]+r3.Gaus(0,.1); } //+0.2*(r3.Rndm()-0.5);
+        { trackParamMeasured[4][planeNum] = noHit; }
+        else { trackParamMeasured[4][planeNum] = PlaneParameterTruth[planeNum]["VPos"]+r3.Gaus(0,.1); } //+0.2*(r3.Rndm()-0.5);
 
       
         PlaneParameterTruth[planeNum]["XPos"] = (InputParameters["XPosition"].at(arrayPosition-numPlanesHit+increment+1)); // increment vs planeNum
@@ -576,8 +577,8 @@ void ProcessEvent(int currentEventNum, int numPlanesHit, int arrayPosition)
     }
 
     // Make these into U and VPos keys.
-    PlanePositionMeasured[planeNum]["UPos"] = (trackParamMeasured[4][planeNum]);
-    PlanePositionMeasured[planeNum]["VPos"] = (trackParamMeasured[3][planeNum]);
+    PlanePositionMeasured[planeNum]["UPos"] = (trackParamMeasured[3][planeNum]);
+    PlanePositionMeasured[planeNum]["VPos"] = (trackParamMeasured[4][planeNum]);
 
     PlanePositionMeasured[planeNum]["YPos"] = (trackParamMeasuredExtra[1][planeNum]); // Just fill with UV recorded values for now I guess.
     PlanePositionMeasured[planeNum]["ZPos"] = (trackParamMeasuredExtra[2][planeNum]);
@@ -636,8 +637,8 @@ void ProcessEvent(int currentEventNum, int numPlanesHit, int arrayPosition)
   // G4double initialYPosChange = initialVPosChange;
   // G4double initialZPosChange = initialUPosChange;
 
-  // G4double initialYPosChange = YZtoVUcoordinateTransformationMatrixInverse(0,0)*initialVPosChange + YZtoVUcoordinateTransformationMatrixInverse(0,1)*initialUPosChange;
-  // G4double initialZPosChange = YZtoVUcoordinateTransformationMatrixInverse(1,0)*initialVPosChange + YZtoVUcoordinateTransformationMatrixInverse(1,1)*initialUPosChange;
+  // G4double initialYPosChange = YZtoUVcoordinateTransformationMatrixInverse(0,0)*initialUPosChange + YZtoUVcoordinateTransformationMatrixInverse(0,1)*initialVPosChange;
+  // G4double initialZPosChange = YZtoUVcoordinateTransformationMatrixInverse(1,0)*initialUPosChange + YZtoUVcoordinateTransformationMatrixInverse(1,1)*initialVPosChange;
 
   G4double initialYPosChange = 40.*(r3.Rndm()-0.5); 
   G4double initialZPosChange = 40.*(r3.Rndm()-0.5); 
@@ -721,8 +722,8 @@ for (int passNumber = 0; passNumber < numPasses; ++passNumber)
   G4ThreeVector pv3( startingXMom, startingYMom, startingZMom );
 
   // Leave this in for if the source code is ever fixed.
-  // startingVMom = YZtoVUcoordinateTransformationMatrix(0,0)*startingYMom + YZtoVUcoordinateTransformationMatrix(0,1)*startingZMom; // Form the U and V momenta at the start of each pass from Y and Z.
-  // startingUMom = YZtoVUcoordinateTransformationMatrix(1,0)*startingYMom + YZtoVUcoordinateTransformationMatrix(1,1)*startingZMom;
+  // startingUMom = YZtoUVcoordinateTransformationMatrix(0,0)*startingYMom + YZtoUVcoordinateTransformationMatrix(0,1)*startingZMom; // Form the U and V momenta at the start of each pass from Y and Z.
+  // startingVMom = YZtoUVcoordinateTransformationMatrix(1,0)*startingYMom + YZtoUVcoordinateTransformationMatrix(1,1)*startingZMom;
 
   // std::cout << std::endl << "Pass number: " << passNumber+1 << std::endl;
 
@@ -1003,8 +1004,8 @@ for (int passNumber = 0; passNumber < numPasses; ++passNumber)
       // Leave in for if the source code is ever fixed.
       // startingVMom = pvpOVERpup * startingXMom; // This is the new startingXMom.
       // startingUMom = pwpOVERpup * startingXMom;
-      // startingYMom = YZtoVUcoordinateTransformationMatrixInverse(0,0)*startingVMom + YZtoVUcoordinateTransformationMatrixInverse(0,1)*startingUMom;
-      // startingZMom = YZtoVUcoordinateTransformationMatrixInverse(1,0)*startingVMom + YZtoVUcoordinateTransformationMatrixInverse(1,1)*startingUMom;
+      // startingYMom = YZtoUVcoordinateTransformationMatrixInverse(0,0)*startingUMom + YZtoUVcoordinateTransformationMatrixInverse(0,1)*startingVMom;
+      // startingZMom = YZtoUVcoordinateTransformationMatrixInverse(1,0)*startingUMom + YZtoUVcoordinateTransformationMatrixInverse(1,1)*startingVMom;
 
       startingYMom = pvpOVERpup * startingXMom; // This is the new startingXMom.
       startingZMom = pwpOVERpup * startingXMom;
@@ -1143,8 +1144,8 @@ for (int passNumber = 0; passNumber < numPasses; ++passNumber)
   // I don't currently produce UV momentum residuals for any planes.
   // I want truth - best fit for the storage region since that's what I ultimately care about.
 
-  UPositionResidual = PlaneParameterTruth[0]["UPos"] - (YZtoVUcoordinateTransformationMatrix(1,0)*trackParamPredicted[3].at(0) + YZtoVUcoordinateTransformationMatrix(1,1)*trackParamPredicted[4].at(0)); 
-  VPositionResidual = PlaneParameterTruth[0]["VPos"] - (YZtoVUcoordinateTransformationMatrix(0,0)*trackParamPredicted[3].at(0) + YZtoVUcoordinateTransformationMatrix(0,1)*trackParamPredicted[4].at(0)); 
+  UPositionResidual = PlaneParameterTruth[0]["UPos"] - (YZtoUVcoordinateTransformationMatrix(0,0)*trackParamPredicted[3].at(0) + YZtoUVcoordinateTransformationMatrix(0,1)*trackParamPredicted[4].at(0)); 
+  VPositionResidual = PlaneParameterTruth[0]["VPos"] - (YZtoUVcoordinateTransformationMatrix(1,0)*trackParamPredicted[3].at(0) + YZtoUVcoordinateTransformationMatrix(1,1)*trackParamPredicted[4].at(0)); 
 
   YPositionResidual = PlaneParameterTruth[0]["YPos"] - trackParamPredictedExtra[1][0]; // These are fine for the Y and Z position residuals since they come after all of the UV track fitting.
   ZPositionResidual = PlaneParameterTruth[0]["ZPos"] - trackParamPredictedExtra[2][0];
@@ -1184,8 +1185,8 @@ for (int passNumber = 0; passNumber < numPasses; ++passNumber)
     PlaneTracebackResiduals[planeNum]["Y"] = (PlanePositionMeasured[planeNum]["YPos"] - trackParamPredictedExtra[1].at(planeNum)); // Measured - best fit line residual. Really is truth - best fit since I don't measure and smear YZ.
     PlaneTracebackResiduals[planeNum]["Z"] = (PlanePositionMeasured[planeNum]["ZPos"] - trackParamPredictedExtra[2].at(planeNum));  
 
-    PlaneTracebackResiduals[planeNum]["U"] = (PlanePositionMeasured[planeNum]["UPos"] - (YZtoVUcoordinateTransformationMatrix(1,0)*trackParamPredicted[3].at(planeNum) + YZtoVUcoordinateTransformationMatrix(1,1)*trackParamPredicted[4].at(planeNum)));
-    PlaneTracebackResiduals[planeNum]["V"] = (PlanePositionMeasured[planeNum]["VPos"] - (YZtoVUcoordinateTransformationMatrix(0,0)*trackParamPredicted[3].at(planeNum) + YZtoVUcoordinateTransformationMatrix(0,1)*trackParamPredicted[4].at(planeNum)));
+    PlaneTracebackResiduals[planeNum]["U"] = (PlanePositionMeasured[planeNum]["UPos"] - (YZtoUVcoordinateTransformationMatrix(0,0)*trackParamPredicted[3].at(planeNum) + YZtoUVcoordinateTransformationMatrix(0,1)*trackParamPredicted[4].at(planeNum)));
+    PlaneTracebackResiduals[planeNum]["V"] = (PlanePositionMeasured[planeNum]["VPos"] - (YZtoUVcoordinateTransformationMatrix(1,0)*trackParamPredicted[3].at(planeNum) + YZtoUVcoordinateTransformationMatrix(1,1)*trackParamPredicted[4].at(planeNum)));
     // PlaneTracebackResiduals[planeNum]["U"] = (PlanePositionMeasured[planeNum]["UPos"] - (trackParamPredicted[4].at(planeNum)));
     // PlaneTracebackResiduals[planeNum]["V"] = (PlanePositionMeasured[planeNum]["VPos"] - (trackParamPredicted[3].at(planeNum)));
 
@@ -1262,7 +1263,7 @@ void TrackCorrelation(std::vector<G4ErrorMatrix> myTransferMatrices, std::vector
 
 std::vector<Eigen::VectorXd> paramMeasuredEigen;
 std::vector<Eigen::VectorXd> paramPredictedEigen; // Already in YZ
-std::vector<Eigen::VectorXd> paramPredictedInVU;
+std::vector<Eigen::VectorXd> paramPredictedInUV;
 std::vector<Eigen::VectorXd> residuals;
 
 std::vector<double> chiSquaredSinglePlane;
@@ -1322,8 +1323,8 @@ for(int ipl=0;ipl<maxNumPlanes;ipl++) {
 
  for (int ipl = 0; ipl < maxNumPlanes; ++ipl) // Use this loop to convert YZ transport and error matrices to VU.
  {
-   myTransferMatricesGeVcm[ipl] =  JacobianToVU.inverse() * myTransferMatricesGeVcm[ipl] * JacobianToVU;
-   errorMatricesGeVcm[ipl] =  JacobianToVU.inverse() * errorMatricesGeVcm[ipl] * JacobianToVU;
+   myTransferMatricesGeVcm[ipl] =  JacobianToUV.inverse() * myTransferMatricesGeVcm[ipl] * JacobianToUV;
+   errorMatricesGeVcm[ipl] =  JacobianToUV.inverse() * errorMatricesGeVcm[ipl] * JacobianToUV;
    // NOTE: The inverse is on the left side here because of how we generate the Jacobian between the two bases.
  }
 
@@ -1403,37 +1404,33 @@ for(int ipl=0;ipl<maxNumPlanes;ipl++) {
 
             if (paramMeasured[3][ipl] == noHit && paramMeasured[4][ipl] == noHit)
             { 
- #if MATRIXDEBUG            
+#if MATRIXDEBUG            
   G4cout << " Hit neither. " << G4endl;
-  #endif
+#endif
 
               UplaneHitOrNot.push_back(false); 
               VplaneHitOrNot.push_back(false);
               continue; // Leave the sigma error matrix as zeros.
             }
 
-            else if (paramMeasured[3][ipl] == noHit && paramMeasured[4][ipl] != noHit)
+            else if (paramMeasured[4][ipl] == noHit && paramMeasured[3][ipl] != noHit)
             {
 #if MATRIXDEBUG
  G4cout << " Hit U. " << G4endl;
 #endif
-              // INVsigmaErrorMatrices[ipl](4,4) = tempMatrix(1,1); // 11 element for bottom right 2x2 matrix element.
-              // INVmaterialErrorMatrices[ipl](4,4) = 10000.;
 
-              mainDiagonalErrorMatrices[ipl](4,4) = errorMatricesGeVcm[ipl](4,4) + (.01*.01);
+              mainDiagonalErrorMatrices[ipl](3,3) = errorMatricesGeVcm[ipl](3,3) + (.01*.01);
               UplaneHitOrNot.push_back(true);
               VplaneHitOrNot.push_back(false);
             }
 
-            else if (paramMeasured[4][ipl] == noHit && paramMeasured[3][ipl] != noHit)
+            else if (paramMeasured[3][ipl] == noHit && paramMeasured[4][ipl] != noHit)
             {
 #if MATRIXDEBUG
   G4cout << " Hit V. " << G4endl;
 #endif
-              // INVsigmaErrorMatrices[ipl](3,3) = tempMatrix(0,0); // 11 element for bottom right 2x2 matrix element.
-              // INVmaterialErrorMatrices[ipl](3,3) = 10000.;
 
-              mainDiagonalErrorMatrices[ipl](3,3) = errorMatricesGeVcm[ipl](3,3) + (.01*.01);
+              mainDiagonalErrorMatrices[ipl](4,4) = errorMatricesGeVcm[ipl](4,4) + (.01*.01);
               UplaneHitOrNot.push_back(false);
               VplaneHitOrNot.push_back(true);
             }
@@ -1578,7 +1575,7 @@ for(int ipl=0;ipl<maxNumPlanes;ipl++) {
           Eigen::MatrixXd tempMatrix = (transportMatrixBegToEnd[index]*(transportMatrixBegToEnd[ipl].inverse())*errorMatricesGeVcm[ipl]);
 
           Eigen::MatrixXd topDiagonalMatrixFill = Eigen::MatrixXd::Zero(5,5);
-          Eigen::MatrixXd botDiagonalMatrixFill = Eigen::MatrixXd::Zero(5,5);
+          // Eigen::MatrixXd botDiagonalMatrixFill = Eigen::MatrixXd::Zero(5,5);
 
             if (paramMeasured[3][ipl] == noHit && paramMeasured[4][ipl] == noHit) // Check to make sure the current plane was hit as well as the plane to which we are correlating.
             { 
@@ -1677,14 +1674,14 @@ for(int ipl=0;ipl<maxNumPlanes;ipl++) {
 
         if (UplaneHitOrNot.at(ipl) == false)
         {
-          combinedTotalErrorCorrelationMatrix.block(ipl*numTrackParams+4,0,1,combinedTotalErrorCorrelationMatrix.cols()).setConstant(noHit);
-          combinedTotalErrorCorrelationMatrix.block(0,ipl*numTrackParams+4,combinedTotalErrorCorrelationMatrix.rows(),1).setConstant(noHit);
+          combinedTotalErrorCorrelationMatrix.block(ipl*numTrackParams+3,0,1,combinedTotalErrorCorrelationMatrix.cols()).setConstant(noHit);
+          combinedTotalErrorCorrelationMatrix.block(0,ipl*numTrackParams+3,combinedTotalErrorCorrelationMatrix.rows(),1).setConstant(noHit);
         }
 
         if (VplaneHitOrNot.at(ipl) == false)
         {
-          combinedTotalErrorCorrelationMatrix.block(ipl*numTrackParams+3,0,1,combinedTotalErrorCorrelationMatrix.cols()).setConstant(noHit);
-          combinedTotalErrorCorrelationMatrix.block(0,ipl*numTrackParams+3,combinedTotalErrorCorrelationMatrix.rows(),1).setConstant(noHit);
+          combinedTotalErrorCorrelationMatrix.block(ipl*numTrackParams+4,0,1,combinedTotalErrorCorrelationMatrix.cols()).setConstant(noHit);
+          combinedTotalErrorCorrelationMatrix.block(0,ipl*numTrackParams+4,combinedTotalErrorCorrelationMatrix.rows(),1).setConstant(noHit);
         }
       }
 
@@ -1785,7 +1782,7 @@ for(int ipl=0;ipl<maxNumPlanes;ipl++) {
             for(int ipl=0;ipl<maxNumPlanes;ipl++) {
               paramMeasuredEigen.push_back(Eigen::VectorXd::Zero(5));
               paramPredictedEigen.push_back(Eigen::VectorXd::Zero(5));
-              paramPredictedInVU.push_back(Eigen::VectorXd::Zero(5));
+              paramPredictedInUV.push_back(Eigen::VectorXd::Zero(5));
 
                for(int i=0;i<5;i++) {
                   paramMeasuredEigen[ipl](i) = paramMeasured[i][ipl];
@@ -1795,7 +1792,7 @@ for(int ipl=0;ipl<maxNumPlanes;ipl++) {
              }
 
             for(int ipl=0;ipl<maxNumPlanes;ipl++) {
-                    paramPredictedInVU[ipl] = YZtoVUcoordinateTransformFiveByFive * paramPredictedEigen[ipl]; 
+                    paramPredictedInUV[ipl] = YZtoUVcoordinateTransformFiveByFive * paramPredictedEigen[ipl]; 
              } 
 
 /////////////////////////////////////////////////////////////////////////////////////
@@ -1809,7 +1806,7 @@ for(int ipl=0;ipl<maxNumPlanes;ipl++) {
 
             for(int ipl=0;ipl<maxNumPlanes;ipl++) {
               residuals.push_back(Eigen::VectorXd::Zero(5));
-              residuals[ipl] = paramMeasuredEigen[ipl]-paramPredictedInVU[ipl];
+              residuals[ipl] = paramMeasuredEigen[ipl]-paramPredictedInUV[ipl];
             }
 
             // GEVCM Convert residuals from MeV mm to GeV cm to multiply against GeV cm transport and error matrices.
@@ -1836,7 +1833,7 @@ for(int ipl=0;ipl<maxNumPlanes;ipl++) {
              for (int ipl = 1; ipl < maxNumPlanes; ++ipl){
                printf("params predicted Plane %d \n",ipl);
                std::cout << "Eigen objects: " << G4endl << paramPredictedEigen[ipl] << G4endl;
-               std::cout << " And from YZ to VU: " << G4endl << paramPredictedInVU[ipl]; // Also Eigen
+               std::cout << " And from YZ to UV: " << G4endl << paramPredictedInUV[ipl]; // Also Eigen
                printf("\n \n");
              } 
 
@@ -1920,7 +1917,7 @@ for(int ipl=0;ipl<maxNumPlanes;ipl++) {
 
               // I can multiply the Jacobian against deltaPsiNought here to immediately convert back to YZ for easire use in the main code. Careful with inverses.
 
-              deltaPsiNoughtYZ = JacobianToVU * deltaPsiNought;
+              deltaPsiNoughtYZ = JacobianToUV * deltaPsiNought;
 
               // GEVCM
               deltaStartingTrack[0] = deltaPsiNoughtYZ(0) * 1.0e-3; // Convert back to MeV mm units for the main code to use.

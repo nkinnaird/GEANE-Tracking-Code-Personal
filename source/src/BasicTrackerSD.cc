@@ -54,14 +54,14 @@ G4bool BasicTrackerSD::ProcessHits(G4Step* aStep,
                                      G4TouchableHistory*)
 {  
 
-  CLHEP::HepMatrix YZtoVUcoordinateTransformationMatrix(2,2);
+  CLHEP::HepMatrix YZtoUVcoordinateTransformationMatrix(2,2);
 
   double rotationAngle = 7.5*pi/180;
 
-  YZtoVUcoordinateTransformationMatrix[0][0]=std::sin(rotationAngle);
-  YZtoVUcoordinateTransformationMatrix[0][1]=std::cos(rotationAngle);
-  YZtoVUcoordinateTransformationMatrix[1][0]=-std::sin(rotationAngle);
-  YZtoVUcoordinateTransformationMatrix[1][1]=std::cos(rotationAngle);
+  YZtoUVcoordinateTransformationMatrix[0][0]=std::sin(rotationAngle);
+  YZtoUVcoordinateTransformationMatrix[0][1]=std::cos(rotationAngle);
+  YZtoUVcoordinateTransformationMatrix[1][0]=-std::sin(rotationAngle);
+  YZtoUVcoordinateTransformationMatrix[1][1]=std::cos(rotationAngle);
 
 
   G4double energyThreshold = 500.*MeV;
@@ -94,22 +94,22 @@ G4bool BasicTrackerSD::ProcessHits(G4Step* aStep,
         // newHit->SetUPos (pPreStepPoint->GetPosition().z()); // Set U and V to Y and Z respectively for now.
         // newHit->SetVPos (pPreStepPoint->GetPosition().y());
 
-        newHit->SetVPos (YZtoVUcoordinateTransformationMatrix[0][0]*pPreStepPoint->GetPosition().y() + YZtoVUcoordinateTransformationMatrix[0][1]*pPreStepPoint->GetPosition().z());
-        newHit->SetUPos (YZtoVUcoordinateTransformationMatrix[1][0]*pPreStepPoint->GetPosition().y() + YZtoVUcoordinateTransformationMatrix[1][1]*pPreStepPoint->GetPosition().z());
+        newHit->SetUPos (YZtoUVcoordinateTransformationMatrix[0][0]*pPreStepPoint->GetPosition().y() + YZtoUVcoordinateTransformationMatrix[0][1]*pPreStepPoint->GetPosition().z());
+        newHit->SetVPos (YZtoUVcoordinateTransformationMatrix[1][0]*pPreStepPoint->GetPosition().y() + YZtoUVcoordinateTransformationMatrix[1][1]*pPreStepPoint->GetPosition().z());
 
     }
     else if (pPreStepPoint->GetPhysicalVolume()->GetName() == "TruthPlaneU")
     {
+        newHit->SetUPos (YZtoUVcoordinateTransformationMatrix[0][0]*pPreStepPoint->GetPosition().y() + YZtoUVcoordinateTransformationMatrix[0][1]*pPreStepPoint->GetPosition().z());
         newHit->SetVPos (noHit);
-        newHit->SetUPos (YZtoVUcoordinateTransformationMatrix[1][0]*pPreStepPoint->GetPosition().y() + YZtoVUcoordinateTransformationMatrix[1][1]*pPreStepPoint->GetPosition().z());
 
         // newHit->SetUPos (pPreStepPoint->GetPosition().z());
         // newHit->SetVPos (noHit);
     }
     else if (pPreStepPoint->GetPhysicalVolume()->GetName() == "TruthPlaneV")
     {
-        newHit->SetVPos (YZtoVUcoordinateTransformationMatrix[0][0]*pPreStepPoint->GetPosition().y() + YZtoVUcoordinateTransformationMatrix[0][1]*pPreStepPoint->GetPosition().z());
         newHit->SetUPos (noHit);
+        newHit->SetVPos (YZtoUVcoordinateTransformationMatrix[1][0]*pPreStepPoint->GetPosition().y() + YZtoUVcoordinateTransformationMatrix[1][1]*pPreStepPoint->GetPosition().z());
  
         // newHit->SetUPos (noHit);
         // newHit->SetVPos (pPreStepPoint->GetPosition().y());

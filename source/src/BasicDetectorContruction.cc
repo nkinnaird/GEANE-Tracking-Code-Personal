@@ -139,12 +139,12 @@ G4VPhysicalVolume* BasicDetectorConstruction::Construct()
      G4int totalStraws = numStrawsLayer * moduleNum * layerNum;
 
      G4RotationMatrix* URotation = new G4RotationMatrix();
-     URotation->rotateX(82.5*deg);
+     URotation->rotateX(97.5*deg);
      URotation->rotateY(0.*deg);
      URotation->rotateZ(0.*deg);
 
      G4RotationMatrix* VRotation = new G4RotationMatrix();
-     VRotation->rotateX(97.5*deg);
+     VRotation->rotateX(82.5*deg);
      VRotation->rotateY(0.*deg);
      VRotation->rotateZ(0.*deg);
 
